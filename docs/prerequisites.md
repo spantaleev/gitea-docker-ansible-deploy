@@ -15,7 +15,7 @@
 - the [Ansible](http://ansible.com/) program being installed on your own computer. It's used to run this playbook and configures your server for you
 
 - [`git`](https://git-scm.com/) is the recommended way to download the playbook to your computer
--
+
 - Properly configured DNS records for `<your-domain>` (details in [Configuring DNS](configuring-dns.md)).
 
 - Some TCP ports open. This playbook (actually [Docker itself](https://docs.docker.com/network/iptables/)) configures the server's internal firewall for you. In most cases, you don't need to do anything special. But **if your server is running behind another firewall**, you'd need to open these ports:
