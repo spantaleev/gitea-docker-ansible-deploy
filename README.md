@@ -34,6 +34,6 @@ When updating the playbook, refer to [the changelog](CHANGELOG.md) to catch up w
 
 You may also be interested in these other playbooks:
 
-- [matrix-docker-ansible-deploy](https://github.com/spantaleev/matrix-docker-ansible-deploy), for deploying a fully-featured [Matrix](https://matrix.org) homeserver
+- [matrix-docker-ansible-deploy](https://github.com/spantaleev/matrix-docker-ansible-deploy) - for deploying a fully-featured [Matrix](https://matrix.org) homeserver
 
 - [nextcloud-docker-ansible-deploy](https://github.com/spantaleev/nextcloud-docker-ansible-deploy) - for deploying a [Nextcloud](https://nextcloud.com/) server
