@@ -1,11 +1,10 @@
 ---
 
-# TODO - reenable
-# - include_tasks: "{{ role_path }}/tasks/setup_redhat.yml"
-#   when: ansible_os_family == 'RedHat'
+- include_tasks: "{{ role_path }}/tasks/setup_redhat.yml"
+  when: ansible_os_family == 'RedHat'
 
-# - include_tasks: "{{ role_path }}/tasks/setup_debian.yml"
-#   when: ansible_os_family == 'Debian'
+- include_tasks: "{{ role_path }}/tasks/setup_debian.yml"
+  when: ansible_os_family == 'Debian'
 
 - name: Ensure Gitea backup paths exist
   ansible.builtin.file:
