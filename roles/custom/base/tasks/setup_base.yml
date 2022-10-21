@@ -1,0 +1,35 @@
+---
+
+- name: Ensure Gitea base paths exists
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0750"
+    owner: "{{ gitea_uid }}"
+    group: "{{ gitea_uid }}"
+  with_items:
+    - "{{ gitea_base_path }}"
+
+# `docker_network` doesn't work as expected when the given network
+# is a substring of a network that already exists.
+#
+# See:
+# - https://github.com/spantaleev/matrix-docker-ansible-deploy/issues/12
+# - https://github.com/ansible/ansible/issues/32926
+#
+# Due to that, we employ a workaround below.
+#
+# - name: Ensure Gitea network is created in Docker
+#   docker_network:
+#     name: "{{ gitea_container_network }}"
+#     driver: bridge
+- name: Check existence of Gitea network in Docker
+  shell:
+    cmd: "docker network ls -q --filter='name=^{{ gitea_container_network }}$'"
+  register: gitea_result_docker_network
+  changed_when: false
+
+- name: Create Gitea network in Docker
+  shell:
+    cmd: "docker network create --driver=bridge {{ gitea_container_network }}"
+  when: "gitea_result_docker_network.stdout == ''"

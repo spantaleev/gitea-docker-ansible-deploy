@@ -1,0 +1,7 @@
+---
+
+- name: Ensure gpg installed
+  apt:
+    name:
+      - gnupg
+    state: latest

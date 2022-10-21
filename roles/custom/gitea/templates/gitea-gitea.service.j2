@@ -1,0 +1,41 @@
+[Unit]
+Description=Gitea
+{% for service in gitea_gitea_systemd_required_services_list %}
+Requires={{ service }}
+After={{ service }}
+{% endfor %}
+DefaultDependencies=no
+
+[Service]
+Type=simple
+Environment="HOME={{ devture_systemd_docker_base_systemd_unit_home_path }}"
+ExecStartPre=-{{ devture_systemd_docker_base_host_command_sh }} -c '{{ devture_systemd_docker_base_host_command_docker }} kill gitea-gitea 2>/dev/null'
+ExecStartPre=-{{ devture_systemd_docker_base_host_command_sh }} -c '{{ devture_systemd_docker_base_host_command_docker }} rm gitea-gitea 2>/dev/null'
+
+ExecStart={{ devture_systemd_docker_base_host_command_docker }} run --rm --name gitea-gitea \
+			--log-driver=none \
+			--network={{ gitea_container_network }} \
+			--user={{ gitea_uid }}:{{ gitea_gid }} \
+			--hostname={{ gitea_server_fqn_gitea }} \
+			{% if gitea_gitea_http_bind_port != '' %}
+			-p {{ gitea_gitea_http_bind_port }}:3000 \
+			{% endif %}
+			{% if gitea_gitea_ssh_bind_port != '' %}
+			-p {{ gitea_gitea_ssh_bind_port }}:2222 \
+			{% endif %}
+			--env-file={{ gitea_gitea_base_path }}/env \
+			--label-file={{ gitea_gitea_base_path }}/labels \
+			--mount type=bind,src={{ gitea_gitea_data_dir_path }},dst=/var/lib/gitea \
+			--mount type=bind,src={{ gitea_gitea_config_dir_path }},dst=/etc/gitea \
+			--mount type=bind,src=/etc/timezone,dst=/etc/timezone,ro \
+			--mount type=bind,src=/etc/localtime,dst=/etc/localtime,ro \
+			{{ gitea_gitea_container_image }}
+
+ExecStop=-{{ devture_systemd_docker_base_host_command_sh }} -c '{{ devture_systemd_docker_base_host_command_docker }} kill gitea-gitea 2>/dev/null'
+ExecStop=-{{ devture_systemd_docker_base_host_command_sh }} -c '{{ devture_systemd_docker_base_host_command_docker }} rm gitea-gitea 2>/dev/null'
+Restart=always
+RestartSec=30
+SyslogIdentifier=gitea-gitea
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,14 @@
+---
+
+gitea_server_fqn_gitea: "gitea.YOUR_DOMAIN_NAME_HERE"
+
+# A secret used as a base, for generating various other secrets.
+# You can put any string here, but generating a strong one is preferred (e.g. `pwgen -s 64 1`).
+gitea_generic_secret_key: ''
+
+devture_traefik_ssl_email_address: ''
+
+# A Postgres password to use for the superuser Postgres user (called `root` by default).
+#
+# The playbook creates additional Postgres users and databases (one for each enabled service) using this superuser account.
+devture_postgres_connection_password: ''

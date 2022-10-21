@@ -1,0 +1,6 @@
+[Unit]
+Description=Performs a Gitea backup
+
+[Service]
+Type=oneshot
+ExecStart={{ gitea_backup_bin_path }}/backup

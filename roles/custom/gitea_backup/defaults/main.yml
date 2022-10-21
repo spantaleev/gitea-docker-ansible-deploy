@@ -1,0 +1,27 @@
+---
+
+gitea_backup_enabled: false
+
+gitea_backup_base_path: "{{ gitea_base_path }}/backup"
+gitea_backup_bin_path: "{{ gitea_base_path }}/backup/bin"
+gitea_backup_etc_path: "{{ gitea_base_path }}/backup/etc"
+gitea_backup_data_path: "{{ gitea_base_path }}/backup/data"
+
+# gitea_backup_encryption_password holds a password to use for symmetric gpg encryption
+gitea_backup_encryption_password: ''
+
+# gitea_backup_stop_gitea_while_running controls whether the Gitea systemd service will be stopped while backups are running.
+# It will be started back up after the backup process.
+#
+# By default, we favor extra safety, at the expense of some downtime while backing up.
+gitea_backup_stop_gitea_while_running: true
+
+# gitea_backup_schedule contains a systemd OnCalendar definition
+gitea_backup_schedule: '*-*-* 06:30:00'
+
+gitea_backup_b2_enabled: false
+gitea_backup_b2_container_image: docker.io/tianon/backblaze-b2:3.6.0
+gitea_backup_b2_container_image_force_pull: "{{ gitea_backup_b2_container_image.endswith(':latest') }}"
+gitea_backup_b2_bucket: bucket-name
+gitea_backup_b2_key_id: ~
+gitea_backup_b2_key_secret: ~

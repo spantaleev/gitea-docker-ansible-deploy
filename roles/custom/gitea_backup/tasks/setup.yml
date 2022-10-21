@@ -1,0 +1,63 @@
+---
+
+# TODO - reenable
+# - include_tasks: "{{ role_path }}/tasks/setup_redhat.yml"
+#   when: ansible_os_family == 'RedHat'
+
+# - include_tasks: "{{ role_path }}/tasks/setup_debian.yml"
+#   when: ansible_os_family == 'Debian'
+
+- name: Ensure Gitea backup paths exist
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0750"
+    owner: "{{ gitea_uid }}"
+    group: "{{ gitea_uid }}"
+  with_items:
+    - "{{ gitea_backup_base_path }}"
+    - "{{ gitea_backup_bin_path }}"
+    - "{{ gitea_backup_etc_path }}"
+    - "{{ gitea_backup_data_path }}"
+
+- name: Ensure backup password file installed
+  ansible.builtin.copy:
+    content: "{{ gitea_backup_encryption_password }}"
+    dest: "{{ gitea_backup_etc_path }}/backup-password"
+    mode: 0750
+
+- name: Ensure backup program installed
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/backup.j2"
+    dest: "{{ gitea_backup_bin_path }}/backup"
+    mode: 0750
+
+- name: Ensure backup systemd services installed
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/systemd/{{ item }}.j2"
+    dest: "/etc/systemd/system/{{ item }}"
+    mode: 0640
+  with_items:
+    - gitea-backup.service
+    - gitea-backup.timer
+  register: gitea_backup_systemd_service_result
+
+- when: gitea_backup_b2_enabled | bool
+  block:
+      - name: Ensure B2 environment variables created
+        ansible.builtin.template:
+          src: "{{ role_path }}/templates/provider/b2/env"
+          dest: "{{ gitea_backup_etc_path }}/b2-env"
+          mode: 0640
+
+      - name: Ensure B2 image is pulled
+        docker_image:
+          name: "{{ gitea_backup_b2_container_image }}"
+          source: "{{ 'pull' if ansible_version.major > 2 or ansible_version.minor > 7 else omit }}"
+          force_source: "{{ gitea_backup_b2_container_image_force_pull if ansible_version.major > 2 or ansible_version.minor >= 8 else omit }}"
+          force: "{{ omit if ansible_version.major > 2 or ansible_version.minor >= 8 else gitea_backup_b2_container_image_force_pull }}"
+
+- name: Ensure systemd reloaded after backup services installation
+  service:
+    daemon_reload: yes
+  when: gitea_backup_systemd_service_result.changed

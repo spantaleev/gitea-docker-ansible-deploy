@@ -1,0 +1,7 @@
+---
+
+- name: Ensure Gitea services stopped
+  service:
+    name: "{{ item }}"
+    state: stopped
+  with_items: "{{ gitea_services_list }}"

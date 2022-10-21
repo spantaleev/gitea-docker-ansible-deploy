@@ -1,0 +1,52 @@
+- hosts: gitea_servers
+
+  roles:
+    - role: galaxy/com.devture.ansible.role.playbook_help
+
+    - when: gitea_playbook_docker_installation_enabled | bool
+      role: galaxy/geerlingguy.docker
+      vars:
+        docker_install_compose: false
+      tags:
+        - setup-docker
+        - setup-all
+
+    - when: gitea_playbook_timesync_installation_enabled | bool
+      role: galaxy/com.devture.ansible.role.timesync
+      tags:
+        - setup-timesync
+        - setup-all
+
+    - when: gitea_playbook_vars_preservation_enabled | bool
+      role: galaxy/com.devture.ansible.role.vars_preserver
+      tags:
+        - setup-all
+
+    - role: galaxy/com.devture.ansible.role.systemd_docker_base
+
+    - when: gitea_playbook_postgres_installation_enabled | bool
+      role: galaxy/com.devture.ansible.role.postgres
+
+    - role: custom/base
+      tags:
+        - setup-all
+
+    - role: custom/gitea
+      tags:
+        - setup-all
+        - setup-gitea
+
+    - role: custom/gitea_backup
+      tags:
+        - setup-all
+        - setup-gitea-backup
+
+    - when: gitea_playbook_traefik_installation_enabled | bool
+      role: galaxy/com.devture.ansible.role.traefik
+      tags:
+        - setup-traefik
+        - setup-all
+
+    - role: custom/gitea_common_after
+
+    - role: galaxy/com.devture.ansible.role.playbook_runtime_messages

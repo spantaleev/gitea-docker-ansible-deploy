@@ -1,0 +1,9 @@
+[Unit]
+Description=Launches gitea-backup.service periodically
+
+[Timer]
+Unit=gitea-backup.service
+OnCalendar={{ gitea_backup_schedule }}
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,13 @@
+# Base directory that contains everything
+gitea_base_path: "/gitea"
+
+gitea_container_network: gitea
+
+gitea_uid: "1000"
+gitea_gid: "1000"
+
+gitea_services_list: []
+
+# A secret used as a base, for generating various other secrets.
+# You can put any string here, but generating a strong one is preferred (e.g. `pwgen -s 64 1`).
+gitea_generic_secret_key: ''

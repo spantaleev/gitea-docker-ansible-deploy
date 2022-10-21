@@ -1,0 +1,3 @@
+B2_KEY_ID={{ gitea_backup_b2_key_id }}
+B2_KEY_SECRET={{ gitea_backup_b2_key_secret }}
+B2_BUCKET={{ gitea_backup_b2_bucket }}

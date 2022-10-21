@@ -1,0 +1,8 @@
+- ansible.builtin.import_tasks: "{{ role_path }}/tasks/validate_config.yml"
+  tags:
+    - setup-gitea
+    - setup-all
+
+- ansible.builtin.import_tasks: "{{ role_path }}/tasks/setup_base.yml"
+  tags:
+    - setup-all

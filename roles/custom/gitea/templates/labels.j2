@@ -1,0 +1,9 @@
+{% if gitea_gitea_container_labels_traefik_enabled %}
+traefik.enable=true
+traefik.http.routers.gitea-gitea.rule={{ gitea_gitea_container_labels_traefik_rule }}
+traefik.http.routers.gitea-gitea.entrypoints={{ gitea_gitea_container_labels_traefik_entrypoints }}
+traefik.http.routers.gitea-gitea.tls.certResolver={{ gitea_gitea_container_labels_traefik_tls_certResolver }}
+traefik.http.services.gitea-gitea.loadbalancer.server.port=3000
+{% endif %}
+
+{{ gitea_gitea_container_labels_additional_labels }}

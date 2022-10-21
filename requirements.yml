@@ -1,0 +1,25 @@
+---
+
+- src: geerlingguy.docker
+  version: 6.0.1
+
+- src: git+https://github.com/devture/com.devture.ansible.role.playbook_help.git
+  version: c1f40e82b4d6b072b6f0e885239322bdaaaf554f
+
+- src: git+https://github.com/devture/com.devture.ansible.role.systemd_docker_base.git
+  version: cd52e34d34922de6187ed7d9b1e2fdda299a0b6e
+
+- src: git+https://github.com/devture/com.devture.ansible.role.timesync.git
+  version: b0151f8ccecd56db07ee8f1cd0a74a6cd3d433e6
+
+- src: git+https://github.com/devture/com.devture.ansible.role.vars_preserver.git
+  version: 6405ac665120e321ce30a971b1b28c874db5956f
+
+- src: git+https://github.com/devture/com.devture.ansible.role.postgres.git
+  version: 491926b780a571de45a88038cbb5e974e06f98b2
+
+- src: git+https://github.com/devture/com.devture.ansible.role.traefik.git
+  version: 89d767e0f90844ad84d6ee4e65079e8827189a2f
+
+- src: git+https://github.com/devture/com.devture.ansible.role.playbook_runtime_messages.git
+  version: f1c78d4e85e875129790c58335d0e44385683f6b

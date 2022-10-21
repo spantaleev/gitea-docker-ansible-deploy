@@ -1,0 +1,86 @@
+#!/bin/bash
+
+#################################
+### Preparation                 #
+#################################
+
+function on_exit() {
+{% if gitea_backup_stop_gitea_while_running %}
+	systemctl start gitea-gitea.service
+{% endif %}
+}
+
+
+trap on_exit EXIT
+
+{% if gitea_backup_stop_gitea_while_running %}
+systemctl stop gitea-gitea.service
+{% endif %}
+
+#################################
+### /Preparation                #
+#################################
+
+
+#################################
+### Backup                      #
+#################################
+
+date=`date +"%Y%m%d%H%M"`
+
+{% if gitea_playbook_postgres_installation_enabled %}
+{{ devture_postgres_bin_path }}/dump-all {{ gitea_backup_data_path }}
+if [ $? -ne 0 ]; then
+	echo "Postgres dump failed"
+	exit 2
+fi
+{% endif %}
+
+tar cP \
+	--exclude={{ gitea_backup_data_path }}/gitea-latest-backup.tar.gpg \
+	{% if gitea_playbook_postgres_installation_enabled %}
+	--exclude={{ devture_postgres_data_path }} \
+	{% endif %}
+	{{ gitea_backup_data_path }}/latest-dump.sql.gz \
+	{{ gitea_base_path }} \
+| gpg -q -c --batch --no-tty --passphrase-file {{ gitea_backup_etc_path }}/backup-password > {{ gitea_backup_data_path }}/gitea-latest-backup.tar.gpg
+
+if [ $? -ne 0 ]; then
+	echo "Backup creation failed"
+	exit 2
+fi
+
+#################################
+### /Backup                     #
+#################################
+
+
+{% if gitea_backup_b2_enabled %}
+#################################
+### Pushing to B2              #
+#################################
+
+# The `b2 upload-file` command always insists on outputting stuff, so we're hacking around it.
+b2_operation_log_file=$(mktemp /tmp/gitea-backup-b2-XXXXXXXXXXX.log)
+
+docker run \
+	--rm \
+	-w /work \
+	--env-file={{ gitea_backup_etc_path }}/b2-env \
+	-e B2_FILENAME=$date-gitea-latest-backup.tar.gpg \
+	--mount type=bind,src={{ gitea_backup_data_path }}/gitea-latest-backup.tar.gpg,dst=/gitea-latest-backup.tar.gpg,ro \
+	--entrypoint=/bin/sh \
+	{{ gitea_backup_b2_container_image }} \
+	-c 'set -o pipefail && b2 authorize-account $B2_KEY_ID $B2_KEY_SECRET > /dev/null && b2 upload-file --noProgress --quiet $B2_BUCKET /gitea-latest-backup.tar.gpg $B2_FILENAME' > $b2_operation_log_file 2>&1
+
+ret_val=$?
+if [ $ret_val -ne 0 ]; then
+	cat $b2_operation_log_file
+	rm $b2_operation_log_file
+fi
+exit $ret_val
+
+#################################
+### /Pushing to B2              #
+#################################
+{% endif %}

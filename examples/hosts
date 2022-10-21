@@ -1,0 +1,7 @@
+[gitea_servers]
+# To connect using a non-root user (and elevate to root with sudo later),
+# replace `ansible_ssh_user=root` with something like this: `ansible_ssh_user=username become=true become_user=root`
+#
+# For improved Ansible performance, SSH pipelining is enabled by default (`ansible_ssh_pipelining=yes`).
+# If this causes SSH connection troubles, feel free to disable it.
+gitea.<your-domain> ansible_host=<IP address> ansible_ssh_port=2222 ansible_ssh_pipelining=yes

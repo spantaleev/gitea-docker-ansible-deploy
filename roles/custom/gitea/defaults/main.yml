@@ -1,0 +1,50 @@
+---
+
+# The fully-qualified name of your Gitea server (e.g. `gitea.example.com`)
+gitea_server_fqn_gitea: ''
+
+gitea_gitea_container_image: "docker.io/gitea/gitea:{{ gitea_gitea_container_image_tag }}"
+gitea_gitea_container_image_tag: "1.17.3-rootless"
+gitea_gitea_container_image_force_pull: "{{ gitea_gitea_container_image.endswith(':latest') }}"
+
+gitea_gitea_base_path: "{{ gitea_base_path }}/gitea"
+gitea_gitea_data_dir_path: "{{ gitea_gitea_base_path }}/data"
+gitea_gitea_config_dir_path: "{{ gitea_gitea_base_path }}/config"
+
+gitea_gitea_http_bind_port: ''
+gitea_gitea_ssh_bind_port: 0.0.0.0:22
+
+gitea_gitea_systemd_required_services_list: ['docker.service']
+
+gitea_gitea_config_database_type: postgres
+gitea_gitea_config_database_hostname: ''
+gitea_gitea_config_database_port: 5432
+gitea_gitea_config_database_name: gitea
+gitea_gitea_config_database_username: ''
+gitea_gitea_config_database_password: ''
+
+# gitea_gitea_container_labels_traefik_enabled controls whether labels to assist a Traefik reverse-proxy will be attached to the container.
+# See `roles/custom/gitea/templates/labels.j2` for details.
+#
+# To inject your own other container labels, see `gitea_gitea_container_labels_additional_labels`.
+gitea_gitea_container_labels_traefik_enabled: true
+gitea_gitea_container_labels_traefik_rule: 'Host(`{{ gitea_server_fqn_gitea }}`)'
+gitea_gitea_container_labels_traefik_entrypoints: web-secure
+gitea_gitea_container_labels_traefik_tls_certResolver: default
+
+# gitea_gitea_container_labels_additional_labels contains a multiline string with additional labels to add to the container label file.
+# See `roles/custom/gitea/templates/labels.j2` for details.
+#
+# Example:
+# gitea_gitea_container_labels_additional_labels: |
+#   my.label=1
+#   another.label="here"
+gitea_gitea_container_labels_additional_labels: ''
+
+# gitea_gitea_container_additional_environment_variables contains a multiline string with additional environment variables to pass to the container.
+#
+# Example:
+# gitea_gitea_container_additional_environment_variables: |
+#   VAR=1
+#   ANOTHER=value
+gitea_gitea_container_additional_environment_variables: ''

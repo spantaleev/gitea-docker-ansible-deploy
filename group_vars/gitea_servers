@@ -1,0 +1,113 @@
+---
+
+### Playbook
+
+# Controls whether to install Docker or not
+gitea_playbook_docker_installation_enabled: true
+
+# Controls whether to install systemd-timesyncd/ntpd or not
+gitea_playbook_timesync_installation_enabled: true
+
+# Controls whether to install Postgres or not
+# See the `com.devture.ansible.role.postgres` section below for configuration.
+gitea_playbook_postgres_installation_enabled: true
+
+# Controls whether to install Traefik or not
+# See the `com.devture.ansible.role.traefik` section below for configuration.
+gitea_playbook_traefik_installation_enabled: true
+
+# Controls whether the inventory vars.yml file is preserved on the host
+# See the `com.devture.ansible.role.vars_preserver` section below for configuration.
+gitea_playbook_vars_preservation_enabled: true
+
+### /Playbook
+
+
+### Base
+
+gitea_services_list: |
+  {{
+    (['gitea-gitea.service'])
+    +
+    (['gitea-backup.timer'] if gitea_backup_enabled else [])
+    +
+    ([devture_postgres_identifier ~ '.service'] if gitea_playbook_postgres_installation_enabled else [])
+    +
+    (['devture-traefik.service'] if gitea_playbook_docker_installation_enabled else [])
+  }}
+
+### /Base
+
+
+### Gitea
+
+gitea_gitea_systemd_required_services_list: |
+  {{
+    (['docker.service'])
+    +
+    ([devture_postgres_identifier ~ '.service'] if gitea_playbook_postgres_installation_enabled else [])
+  }}
+
+gitea_gitea_container_labels_traefik_enabled: "{{ gitea_playbook_traefik_installation_enabled }}"
+
+gitea_gitea_config_database_hostname: "{{ devture_postgres_identifier if gitea_playbook_postgres_installation_enabled else '' }}"
+gitea_gitea_config_database_port: "{{ '5432' if gitea_playbook_postgres_installation_enabled else '' }}"
+gitea_gitea_config_database_username: "gitea"
+gitea_gitea_config_database_password: "{{ '%s' | format(gitea_generic_secret_key) | password_hash('sha512', 'db.gitea') | to_uuid }}"
+
+### /Gitea
+
+
+### com.devture.ansible.role.postgres
+
+# To completely disable installing Postgres, use `gitea_playbook_postgres_installation_enabled`.
+
+devture_postgres_identifier: gitea-postgres
+
+devture_postgres_base_path: "{{ gitea_base_path }}/postgres"
+
+devture_postgres_container_network: "{{ gitea_container_network }}"
+
+devture_postgres_uid: "{{ gitea_uid }}"
+devture_postgres_gid: "{{ gitea_gid }}"
+
+devture_postgres_vacuum_database: "gitea"
+
+devture_postgres_systemd_services_to_stop_for_maintenance_list: |
+  {{
+    (['gitea-gitea.service'])
+  }}
+
+devture_postgres_additional_databases: |
+  {{
+    [{
+      'name': gitea_gitea_config_database_name,
+      'username': gitea_gitea_config_database_username,
+      'password': gitea_gitea_config_database_password,
+    }]
+  }}
+
+### /com.devture.ansible.role.postgres
+
+
+### com.devture.ansible.role.vars_preserver
+
+# To completely disable this feature, use `gitea_playbook_vars_preservation_enabled`.
+
+devture_vars_preserver_dst: "{{ gitea_base_path }}/vars.yml"
+devture_vars_preserver_uid: "{{ gitea_uid }}"
+devture_vars_preserver_gid: "{{ gitea_gid }}"
+
+### /com.devture.ansible.role.vars_preserver
+
+
+### com.devture.ansible.role.traefik
+
+# To completely disable installing Traefik, use `gitea_playbook_traefik_installation_enabled`.
+
+devture_traefik_container_network: "{{ gitea_container_network }}"
+
+devture_traefik_uid: "{{ gitea_uid }}"
+devture_traefik_gid: "{{ gitea_gid }}"
+
+### /com.devture.ansible.role.traefik
