@@ -31,6 +31,13 @@ The backup system will generate a `/gitea/backup/gitea-latest-backup.tar.gpg` fi
 You can pull it from another remote system or potentially push it elsewhere.
 
 
+### Custom shell commands after backup creation
+
+You can use the `gitea_backup_post_backup_custom_shell_commands` variable to set custom shell commands that will be executed after a backup is created.
+
+Take a look at `roles/custom/gitea_backup/defaults/main.yml` for usage information.
+
+
 ### Pushing backups to backup providers
 
 #### Backblaze B2

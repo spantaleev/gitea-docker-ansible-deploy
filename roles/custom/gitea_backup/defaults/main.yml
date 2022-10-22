@@ -25,3 +25,19 @@ gitea_backup_b2_container_image_force_pull: "{{ gitea_backup_b2_container_image.
 gitea_backup_b2_bucket: bucket-name
 gitea_backup_b2_key_id: ~
 gitea_backup_b2_key_secret: ~
+
+# gitea_backup_post_backup_custom_shell_commands contains a multiline string containing shell (bash) commands to execute
+# after the backup file is created and before pushing it to any backup providers.
+#
+# These commands are injected into `roles/custom/gitea_backup/templates/backup.j2` (`{{ gitea_backup_bin_path }}/backup` on the server).
+#
+# Example:
+#
+# # The commands below expose the latest backup as a `/home/backup/gitea-latest-backup.tar.gpg` file,
+# # to be periodically pulled from a remote machine over SSH (via `backup@gitea.DOMAIN`).
+# # Setting up this `backup` user, home directory and access (SSH keys, etc.) is not managed by the playbook.
+# gitea_backup_post_backup_custom_shell_commands: |
+#   cp {{ gitea_backup_data_path }}/gitea-latest-backup.tar.gpg /home/backup/gitea-latest-backup.tar.gpg
+#   chown backup:backup /home/backup/gitea-latest-backup.tar.gpg
+#   chmod 400 /home/backup/gitea-latest-backup.tar.gpg
+gitea_backup_post_backup_custom_shell_commands: ''

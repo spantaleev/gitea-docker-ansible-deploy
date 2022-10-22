@@ -55,6 +55,17 @@ fi
 #################################
 
 
+{% if gitea_backup_post_backup_shell_commands %}
+#################################
+### Custom shell commands       #
+#################################
+{{ gitea_backup_post_backup_custom_shell_commands }}
+#################################
+### /Custom shell commands       #
+#################################
+{% endif %}
+
+
 {% if gitea_backup_b2_enabled %}
 #################################
 ### Pushing to B2              #
