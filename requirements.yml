@@ -10,7 +10,7 @@
   version: cd52e34d34922de6187ed7d9b1e2fdda299a0b6e
 
 - src: git+https://github.com/devture/com.devture.ansible.role.timesync.git
-  version: b0151f8ccecd56db07ee8f1cd0a74a6cd3d433e6
+  version: cb2236f314f56f46f2a5e9971465f1d08828a4a7
 
 - src: git+https://github.com/devture/com.devture.ansible.role.vars_preserver.git
   version: 6405ac665120e321ce30a971b1b28c874db5956f

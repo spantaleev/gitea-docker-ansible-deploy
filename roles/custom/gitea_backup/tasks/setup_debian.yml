@@ -1,7 +1,7 @@
 ---
 
 - name: Ensure gpg installed
-  apt:
+  ansible.builtin.apt:
     name:
       - gnupg
     state: latest
