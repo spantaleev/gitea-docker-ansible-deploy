@@ -30,7 +30,7 @@ gitea_gitea_config_database_password: ''
 gitea_gitea_container_labels_traefik_enabled: true
 gitea_gitea_container_labels_traefik_rule: 'Host(`{{ gitea_server_fqn_gitea }}`)'
 gitea_gitea_container_labels_traefik_entrypoints: web-secure
-gitea_gitea_container_labels_traefik_tls_certResolver: default
+gitea_gitea_container_labels_traefik_tls_certResolver: default  # noqa var-naming
 
 # gitea_gitea_container_labels_additional_labels contains a multiline string with additional labels to add to the container label file.
 # See `roles/custom/gitea/templates/labels.j2` for details.

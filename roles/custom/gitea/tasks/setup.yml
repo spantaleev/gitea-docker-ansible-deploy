@@ -1,7 +1,7 @@
 ---
 
 - name: Ensure Gitea image is pulled
-  docker_image:
+  community.docker.docker_image:
     name: "{{ gitea_gitea_container_image }}"
     source: "{{ 'pull' if ansible_version.major > 2 or ansible_version.minor > 7 else omit }}"
     force_source: "{{ gitea_gitea_container_image_force_pull if ansible_version.major > 2 or ansible_version.minor >= 8 else omit }}"
@@ -38,6 +38,6 @@
   register: gitea_gitea_systemd_service_result
 
 - name: Ensure systemd reloaded after gitea-gitea.service installation
-  service:
-    daemon_reload: yes
+  ansible.builtin.service:
+    daemon_reload: true
   when: gitea_gitea_systemd_service_result.changed

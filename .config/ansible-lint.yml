@@ -1,0 +1,9 @@
+---
+
+use_default_rules: true
+
+skip_list:
+  - unnamed-task
+  - no-handler
+
+offline: false

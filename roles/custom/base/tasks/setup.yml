@@ -24,12 +24,12 @@
 #     name: "{{ gitea_container_network }}"
 #     driver: bridge
 - name: Check existence of Gitea network in Docker
-  shell:
+  ansible.builtin.command:
     cmd: "docker network ls -q --filter='name=^{{ gitea_container_network }}$'"
   register: gitea_result_docker_network
   changed_when: false
 
 - name: Create Gitea network in Docker
-  shell:
+  ansible.builtin.command:
     cmd: "docker network create --driver=bridge {{ gitea_container_network }}"
   when: "gitea_result_docker_network.stdout == ''"

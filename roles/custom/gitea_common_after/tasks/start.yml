@@ -1,18 +1,18 @@
 ---
 
 - name: Ensure systemd reloaded
-  service:
-    daemon_reload: yes
+  ansible.builtin.service:
+    daemon_reload: true
 
 - name: Ensure Gitea services stopped
-  service:
+  ansible.builtin.service:
     name: "{{ item }}"
     state: stopped
   with_items: "{{ gitea_services_list }}"
 
 - name: Ensure Gitea services started
-  service:
+  ansible.builtin.service:
     name: "{{ item }}"
-    enabled: yes
+    enabled: true
     state: "started"
   with_items: "{{ gitea_services_list }}"

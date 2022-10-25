@@ -4,4 +4,4 @@
   ansible.builtin.apt:
     name:
       - gnupg
-    state: latest
+    state: present

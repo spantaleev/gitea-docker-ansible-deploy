@@ -1,9 +1,9 @@
 ---
 
-- include_tasks: "{{ role_path }}/tasks/setup_redhat.yml"
+- ansible.builtin.include_tasks: "{{ role_path }}/tasks/setup_redhat.yml"
   when: ansible_os_family == 'RedHat'
 
-- include_tasks: "{{ role_path }}/tasks/setup_debian.yml"
+- ansible.builtin.include_tasks: "{{ role_path }}/tasks/setup_debian.yml"
   when: ansible_os_family == 'Debian'
 
 - name: Ensure Gitea backup paths exist
@@ -43,20 +43,20 @@
 
 - when: gitea_backup_b2_enabled | bool
   block:
-      - name: Ensure B2 environment variables created
-        ansible.builtin.template:
-          src: "{{ role_path }}/templates/provider/b2/env"
-          dest: "{{ gitea_backup_etc_path }}/b2-env"
-          mode: 0640
+    - name: Ensure B2 environment variables created
+      ansible.builtin.template:
+        src: "{{ role_path }}/templates/provider/b2/env"
+        dest: "{{ gitea_backup_etc_path }}/b2-env"
+        mode: 0640
 
-      - name: Ensure B2 image is pulled
-        docker_image:
-          name: "{{ gitea_backup_b2_container_image }}"
-          source: "{{ 'pull' if ansible_version.major > 2 or ansible_version.minor > 7 else omit }}"
-          force_source: "{{ gitea_backup_b2_container_image_force_pull if ansible_version.major > 2 or ansible_version.minor >= 8 else omit }}"
-          force: "{{ omit if ansible_version.major > 2 or ansible_version.minor >= 8 else gitea_backup_b2_container_image_force_pull }}"
+    - name: Ensure B2 image is pulled
+      community.docker.docker_image:
+        name: "{{ gitea_backup_b2_container_image }}"
+        source: "{{ 'pull' if ansible_version.major > 2 or ansible_version.minor > 7 else omit }}"
+        force_source: "{{ gitea_backup_b2_container_image_force_pull if ansible_version.major > 2 or ansible_version.minor >= 8 else omit }}"
+        force: "{{ omit if ansible_version.major > 2 or ansible_version.minor >= 8 else gitea_backup_b2_container_image_force_pull }}"
 
 - name: Ensure systemd reloaded after backup services installation
-  service:
-    daemon_reload: yes
+  ansible.builtin.service:
+    daemon_reload: true
   when: gitea_backup_systemd_service_result.changed
