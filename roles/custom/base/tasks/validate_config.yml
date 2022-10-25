@@ -6,5 +6,4 @@
       You need to define a required configuration setting (`{{ item }}`) for using this role.
   when: "vars[item] == ''"
   with_items:
-    - gitea_server_fqn_gitea
     - gitea_generic_secret_key
