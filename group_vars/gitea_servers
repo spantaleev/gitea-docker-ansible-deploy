@@ -33,7 +33,7 @@ gitea_services_list: |
     +
     ([devture_postgres_identifier ~ '.service'] if gitea_playbook_postgres_installation_enabled else [])
     +
-    (['devture-traefik.service'] if gitea_playbook_docker_installation_enabled else [])
+    (['devture-traefik.service'] if gitea_playbook_traefik_installation_enabled else [])
   }}
 
 ### /Base
