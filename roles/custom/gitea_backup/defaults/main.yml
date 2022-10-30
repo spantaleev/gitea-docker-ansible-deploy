@@ -16,7 +16,7 @@ gitea_backup_encryption_password: ''
 # By default, we favor extra safety, at the expense of some downtime while backing up.
 gitea_backup_stop_gitea_while_running: true
 
-# gitea_backup_schedule contains a systemd OnCalendar definition  which controls how often `gitea-backup.timer` runs
+# gitea_backup_schedule contains a systemd OnCalendar definition which controls how often `gitea-backup.timer` runs
 gitea_backup_schedule: '*-*-* 06:30:00'
 
 gitea_backup_b2_enabled: false
