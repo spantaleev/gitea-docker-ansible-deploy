@@ -1,6 +1,7 @@
 - hosts: gitea_servers
 
   roles:
+    # This role has no tasks at all
     - role: galaxy/com.devture.ansible.role.playbook_help
 
     # This role has no tasks at all
