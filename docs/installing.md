@@ -9,7 +9,6 @@ Then, run the playbook: `ansible-playbook -i inventory/hosts setup.yml --tags=se
 If your inventory file (`vars.yml`) contains encrypted variables, you may need to pass `--ask-vault-pass` to the `ansible-playbook` command.
 
 After installing, you can start services: `ansible-playbook -i inventory/hosts setup.yml --tags=start`.
-Gitea may take a minute or so to actually start.
 
 
 ## Initial Gitea setup

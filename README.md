@@ -1,14 +1,33 @@
 # Gitea server setup using Ansible and Docker
 
-This [Ansible](https://www.ansible.com/) playbook can help you set up a [Gitea](https://gitea.io/) server instance:
+This [Ansible](https://www.ansible.com/) playbook can help you set up your own [Gitea](https://gitea.io/) server instance:
 
 - on your own Debian/CentOS/RedHat server
-- with all services (Gitea, Postgres, Traefik, etc.) running in [Docker](https://www.docker.com/) containers
-- powered by the official [gitea/gitea](https://github.com/gitea/gitea) Docker image
+
+- with all services ([Gitea](https://gitea.io/), [PostgreSQL](https://www.postgresql.org/), [Traefik](https://traefik.io), etc.) running in [Docker](https://www.docker.com/) containers
+
+- powered by the official [gitea/gitea](https://hub.docker.com/r/gitea/gitea) container image
+
+- [interoperates nicely](docs/configuring-playbook-interoperability.md) with [related](#related) Ansible playbooks or other services using Traefik for reverse-proxying
 
 SSL certificates are automatically managed by a [Traefik](https://traefik.io) reverse-proxy.
 
-Various components (Postgres, Traefik, etc.) can be disabled and replaced with your own other implementations.
+Various components (Postgres, Traefik, etc.) can be disabled and replaced with your own other implementations (see [configuring the playbook](docs/configuring-playbook.md)).
+
+
+## Features
+
+Using this playbook, you can get the following services configured on your server:
+
+- a [Gitea](https://gitea.io/) server - storing your Git data
+
+- (optional) a [PostgreSQL](https://www.postgresql.org/) database for Gitea
+
+- (optional) free [Let's Encrypt](https://letsencrypt.org/) SSL certificate, which secures the connection to the Gitea server
+
+- [backups](docs/configuring-playbook-backups.md)
+
+Basically, this playbook aims to get you up-and-running with all the basic necessities around Gitea.
 
 
 ## Installation

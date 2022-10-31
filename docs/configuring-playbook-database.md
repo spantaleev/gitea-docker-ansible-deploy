@@ -13,6 +13,7 @@ gitea_playbook_postgres_installation_enabled: false
 
 # Fill these out
 gitea_gitea_config_database_hostname: ""
+gitea_gitea_config_database_port: 5432
 gitea_gitea_config_database_name: ""
 gitea_gitea_config_database_username: ""
 gitea_gitea_config_database_password: ""
