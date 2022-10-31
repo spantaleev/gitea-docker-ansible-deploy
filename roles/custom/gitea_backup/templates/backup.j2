@@ -6,7 +6,7 @@
 
 function on_exit() {
 {% if gitea_backup_stop_gitea_while_running %}
-	systemctl start gitea-gitea.service
+	{{ devture_systemd_docker_base_host_command_systemctl }} start gitea-gitea.service
 {% endif %}
 }
 
@@ -14,7 +14,7 @@ function on_exit() {
 trap on_exit EXIT
 
 {% if gitea_backup_stop_gitea_while_running %}
-systemctl stop gitea-gitea.service
+{{ devture_systemd_docker_base_host_command_systemctl }} stop gitea-gitea.service
 {% endif %}
 
 #################################
@@ -74,7 +74,7 @@ fi
 # The `b2 upload-file` command always insists on outputting stuff, so we're hacking around it.
 b2_operation_log_file=$(mktemp /tmp/gitea-backup-b2-XXXXXXXXXXX.log)
 
-docker run \
+{{ devture_systemd_docker_base_host_command_docker }} run \
 	--rm \
 	-w /work \
 	--env-file={{ gitea_backup_etc_path }}/b2-env \

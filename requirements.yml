@@ -7,7 +7,7 @@
   version: c1f40e82b4d6b072b6f0e885239322bdaaaf554f
 
 - src: git+https://github.com/devture/com.devture.ansible.role.systemd_docker_base.git
-  version: cd52e34d34922de6187ed7d9b1e2fdda299a0b6e
+  version: 327d2e17f5189ac2480d6012f58cf64a2b46efba
 
 - src: git+https://github.com/devture/com.devture.ansible.role.timesync.git
   version: cb2236f314f56f46f2a5e9971465f1d08828a4a7
