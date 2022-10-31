@@ -33,7 +33,7 @@
 - name: Ensure gitea-gitea.service installed
   ansible.builtin.template:
     src: "{{ role_path }}/templates/gitea-gitea.service.j2"
-    dest: "/etc/systemd/system/gitea-gitea.service"
+    dest: "{{ devture_systemd_docker_base_systemd_path }}/gitea-gitea.service"
     mode: 0640
   register: gitea_gitea_systemd_service_result
 

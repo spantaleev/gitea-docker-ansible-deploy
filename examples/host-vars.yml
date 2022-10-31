@@ -6,6 +6,7 @@ gitea_server_fqn_gitea: "gitea.YOUR_DOMAIN_NAME_HERE"
 # You can put any string here, but generating a strong one is preferred (e.g. `pwgen -s 64 1`).
 gitea_generic_secret_key: ''
 
+# The email address to provide to Traefik (which is then provided to Let's Encrypt) for obtaining SSL certificates
 devture_traefik_ssl_email_address: ''
 
 # A Postgres password to use for the superuser Postgres user (called `root` by default).
