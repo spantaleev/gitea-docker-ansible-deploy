@@ -15,6 +15,6 @@ gitea_gitea_http_bind_port: '127.0.0.1:3000'
 # Or:
 # Expose the Gitea container's webserver to port 3000 on all network interfaces.
 # You can reverse-proxy to it from another machine on the public or private network.
-# gitea_gitea_http_bind_port: '127.0.0.1:3000'
+# gitea_gitea_http_bind_port: '3000'
 ```
 
