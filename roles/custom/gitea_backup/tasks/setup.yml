@@ -27,7 +27,7 @@
 
 - name: Ensure backup program installed
   ansible.builtin.template:
-    src: "{{ role_path }}/templates/backup.j2"
+    src: "{{ role_path }}/templates/bin/backup.j2"
     dest: "{{ gitea_backup_bin_path }}/backup"
     mode: 0750
 
