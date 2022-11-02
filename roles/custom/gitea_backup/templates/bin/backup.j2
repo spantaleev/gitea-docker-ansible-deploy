@@ -4,17 +4,14 @@
 ### Preparation                 #
 #################################
 
-function on_exit() {
-{% if gitea_backup_stop_gitea_while_running %}
-	{{ devture_systemd_docker_base_host_command_systemctl }} start gitea-gitea.service
-{% endif %}
-}
-
-
-trap on_exit EXIT
-
 {% if gitea_backup_stop_gitea_while_running %}
 {{ devture_systemd_docker_base_host_command_systemctl }} stop gitea-gitea.service
+
+function restart_gitea() {
+{{ devture_systemd_docker_base_host_command_systemctl }} start gitea-gitea.service
+}
+
+trap restart_gitea EXIT
 {% endif %}
 
 #################################
@@ -54,8 +51,11 @@ fi
 ### /Backup                     #
 #################################
 
+# We're done making the backup can restart early, without waiting for exit.
+restart_gitea
+trap - EXIT
 
-{% if gitea_backup_post_backup_shell_commands %}
+{% if gitea_backup_post_backup_custom_shell_commands %}
 #################################
 ### Custom shell commands       #
 #################################
