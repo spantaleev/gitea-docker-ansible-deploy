@@ -16,10 +16,6 @@ gitea_playbook_postgres_installation_enabled: true
 # See the `com.devture.ansible.role.traefik` section below for configuration.
 gitea_playbook_traefik_installation_enabled: true
 
-# Controls whether the inventory vars.yml file is preserved on the host
-# See the `com.devture.ansible.role.vars_preserver` section below for configuration.
-gitea_playbook_vars_preservation_enabled: true
-
 ### /Playbook
 
 
@@ -92,7 +88,7 @@ devture_postgres_additional_databases: |
 
 ### com.devture.ansible.role.vars_preserver
 
-# To completely disable this feature, use `gitea_playbook_vars_preservation_enabled`.
+# To completely disable this feature, use `devture_vars_preserver_enabled: false`.
 
 devture_vars_preserver_dst: "{{ gitea_base_path }}/vars.yml"
 devture_vars_preserver_uid: "{{ gitea_uid }}"
