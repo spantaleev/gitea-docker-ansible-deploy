@@ -1,5 +1,6 @@
 - hosts: gitea_servers
-
+  become: true
+  
   roles:
     # This role has no tasks at all
     - role: galaxy/com.devture.ansible.role.playbook_help
