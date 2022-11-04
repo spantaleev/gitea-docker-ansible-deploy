@@ -1,7 +1,7 @@
 - name: "Set up a Gitea server"
   hosts: "{{ target if target is defined else 'gitea_servers' }}"
   become: true
-  
+
   roles:
     # This role has no tasks at all
     - role: galaxy/com.devture.ansible.role.playbook_help
@@ -15,6 +15,12 @@
       role: galaxy/geerlingguy.docker
       vars:
         docker_install_compose: false
+      tags:
+        - setup-docker
+        - setup-all
+
+    - when: devture_docker_sdk_for_python_installation_enabled | bool
+      role: galaxy/com.devture.ansible.role.docker_sdk_for_python
       tags:
         - setup-docker
         - setup-all

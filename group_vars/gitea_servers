@@ -7,6 +7,7 @@
 ########################################################################
 
 # Controls whether to install Docker or not
+# Also see `devture_docker_sdk_for_python_installation_enabled`.
 gitea_playbook_docker_installation_enabled: true
 
 # Controls whether to install systemd-timesyncd/ntpd or not
@@ -87,7 +88,7 @@ gitea_gitea_config_database_password: "{{ '%s' | format(gitea_generic_secret_key
 #                                                                      #
 ########################################################################
 
-# To completely disable installing Postgres, use `gitea_playbook_postgres_installation_enabled`.
+# To completely disable installing Postgres, use `gitea_playbook_postgres_installation_enabled: false`.
 
 devture_postgres_identifier: gitea-postgres
 
@@ -151,7 +152,7 @@ devture_playbook_state_preserver_commit_hash_preservation_dst: "{{ gitea_base_pa
 #                                                                      #
 ########################################################################
 
-# To completely disable installing Traefik, use `gitea_playbook_traefik_installation_enabled`.
+# To completely disable installing Traefik, use `gitea_playbook_traefik_installation_enabled: false`.
 
 devture_traefik_container_network: "{{ gitea_container_network }}"
 
@@ -161,5 +162,21 @@ devture_traefik_gid: "{{ gitea_gid }}"
 ########################################################################
 #                                                                      #
 # /com.devture.ansible.role.traefik                                    #
+#                                                                      #
+########################################################################
+
+
+
+########################################################################
+#                                                                      #
+# com.devture.ansible.role.docker_sdk_for_python                       #
+#                                                                      #
+########################################################################
+
+# To completely disable installing the Docker SDK for Python, use `devture_docker_sdk_for_python_installation_enabled: false`.
+
+########################################################################
+#                                                                      #
+# /com.devture.ansible.role.docker_sdk_for_python                      #
 #                                                                      #
 ########################################################################
