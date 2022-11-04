@@ -86,15 +86,18 @@ devture_postgres_additional_databases: |
 ### /com.devture.ansible.role.postgres
 
 
-### com.devture.ansible.role.vars_preserver
+### com.devture.ansible.role.playbook_state_preserver
 
-# To completely disable this feature, use `devture_vars_preserver_enabled: false`.
+# To completely disable this feature, use `devture_playbook_state_preserver_enabled: false`.
 
-devture_vars_preserver_dst: "{{ gitea_base_path }}/vars.yml"
-devture_vars_preserver_uid: "{{ gitea_uid }}"
-devture_vars_preserver_gid: "{{ gitea_gid }}"
+devture_playbook_state_preserver_uid: "{{ gitea_uid }}"
+devture_playbook_state_preserver_gid: "{{ gitea_gid }}"
 
-### /com.devture.ansible.role.vars_preserver
+devture_playbook_state_preserver_vars_preservation_dst: "{{ gitea_base_path }}/vars.yml"
+
+devture_playbook_state_preserver_commit_hash_preservation_dst: "{{ gitea_base_path }}/git_hash.yml"
+
+### /com.devture.ansible.role.playbook_state_preserver
 
 
 ### com.devture.ansible.role.traefik

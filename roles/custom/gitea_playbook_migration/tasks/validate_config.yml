@@ -1,0 +1,13 @@
+---
+
+- name: (Deprecation) Catch and report renamed Gitea settings
+  ansible.builtin.fail:
+    msg: >-
+      Your configuration contains a variable, which now has a different name.
+      Please change your configuration to rename the variable (`{{ item.old }}` -> `{{ item.new }}`).
+  when: "item.old in vars"
+  with_items:
+    - {'old': 'devture_vars_preserver_enabled', 'new': 'devture_playbook_state_preserver_enabled'}
+    - {'old': 'devture_vars_preserver_dst', 'new': 'devture_playbook_state_preserver_vars_preservation_dst'}
+    - {'old': 'devture_vars_preserver_uid', 'new': 'devture_playbook_state_preserver_uid'}
+    - {'old': 'devture_vars_preserver_gid', 'new': 'devture_playbook_state_preserver_gid'}
