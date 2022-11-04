@@ -1,4 +1,5 @@
-- hosts: gitea_servers
+- name: "Set up a Gitea server"
+  hosts: "{{ target if target is defined else 'gitea_servers' }}"
   become: true
   
   roles:
