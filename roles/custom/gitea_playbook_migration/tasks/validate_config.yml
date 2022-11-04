@@ -11,3 +11,4 @@
     - {'old': 'devture_vars_preserver_dst', 'new': 'devture_playbook_state_preserver_vars_preservation_dst'}
     - {'old': 'devture_vars_preserver_uid', 'new': 'devture_playbook_state_preserver_uid'}
     - {'old': 'devture_vars_preserver_gid', 'new': 'devture_playbook_state_preserver_gid'}
+    - {'old': 'gitea_playbook_timesync_installation_enabled', 'new': 'devture_timesync_installation_enabled'}

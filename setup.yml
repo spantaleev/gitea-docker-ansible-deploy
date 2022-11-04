@@ -25,7 +25,7 @@
         - setup-docker
         - setup-all
 
-    - when: gitea_playbook_timesync_installation_enabled | bool
+    - when: devture_timesync_installation_enabled | bool
       role: galaxy/com.devture.ansible.role.timesync
       tags:
         - setup-timesync

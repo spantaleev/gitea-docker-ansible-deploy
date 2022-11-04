@@ -10,9 +10,6 @@
 # Also see `devture_docker_sdk_for_python_installation_enabled`.
 gitea_playbook_docker_installation_enabled: true
 
-# Controls whether to install systemd-timesyncd/ntpd or not
-gitea_playbook_timesync_installation_enabled: true
-
 # Controls whether to install Postgres or not
 # See the `com.devture.ansible.role.postgres` section below for configuration.
 gitea_playbook_postgres_installation_enabled: true
@@ -178,5 +175,21 @@ devture_traefik_gid: "{{ gitea_gid }}"
 ########################################################################
 #                                                                      #
 # /com.devture.ansible.role.docker_sdk_for_python                      #
+#                                                                      #
+########################################################################
+
+
+
+########################################################################
+#                                                                      #
+# com.devture.ansible.role.timesync                                    #
+#                                                                      #
+########################################################################
+
+# To completely disable installing systemd-timesyncd/ntpd, use `devture_timesync_installation_enabled: false`.
+
+########################################################################
+#                                                                      #
+# /com.devture.ansible.role.timesync                                   #
 #                                                                      #
 ########################################################################
