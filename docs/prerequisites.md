@@ -6,7 +6,7 @@
   - **Ubuntu** (18.04 or newer)
   - **Archlinux**
 
-- the machine's SSH server needs to be moved to another port (e.g. `2222`), so that port `22` would be available for Gitea's own purposes
+- the machine's SSH server needs to be moved to another port (e.g. `2222`), so that port `22` would be available for Gitea's own purposes. This behaviour can be changed by setting `gitea_gitea_ssh_bind_port` to a custom value in your `vars.yml`. NOTE: Do not forget to open up the correct ports when changing this default.
 
 - `root` access to your server (or a user capable of elevating to `root` via `sudo`).
 
