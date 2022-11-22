@@ -89,6 +89,8 @@ gitea_gitea_config_database_password: "{{ '%s' | format(gitea_generic_secret_key
 
 devture_postgres_identifier: gitea-postgres
 
+devture_postgres_architecture: "{{ gitea_architecture }}"
+
 devture_postgres_base_path: "{{ gitea_base_path }}/postgres"
 
 devture_postgres_container_network: "{{ gitea_container_network }}"
