@@ -24,6 +24,8 @@ gitea_services_list_additional: []
 # gitea_services_list contains a list of systemd services and their priorities.
 gitea_services_list: "{{ gitea_services_list_auto + gitea_services_list_additional }}"
 
+gitea_services_autostart_enabled: true
+
 # A secret used as a base, for generating various other secrets.
 # You can put any string here, but generating a strong one is preferred (e.g. `pwgen -s 64 1`).
 gitea_generic_secret_key: ''
