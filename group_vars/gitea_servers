@@ -40,7 +40,7 @@ devture_systemd_service_manager_services_list_auto: |
     +
     ([{'name': (devture_postgres_identifier + '.service'), 'priority': 500, 'groups': ['gitea', 'postgres']}] if gitea_playbook_postgres_installation_enabled else [])
     +
-    ([{'name': 'devture-traefik.service', 'priority': 3000, 'groups': ['gitea', 'traefik', 'reverse-proxy']}] if gitea_playbook_traefik_installation_enabled else [])
+    ([{'name': 'devture-traefik.service', 'priority': 3000, 'groups': ['gitea', 'traefik', 'reverse-proxies']}] if gitea_playbook_traefik_installation_enabled else [])
   }}
 
 ########################################################################
