@@ -28,11 +28,11 @@ gitea_playbook_traefik_installation_enabled: true
 
 ########################################################################
 #                                                                      #
-# base                                                                 #
+# com.devture.ansible.role.systemd_service_manager                     #
 #                                                                      #
 ########################################################################
 
-gitea_systemd_services_list_auto: |
+devture_systemd_service_manager_services_list_auto: |
   {{
     ([{'name': 'gitea-gitea.service', 'priority': 1000}])
     +
@@ -45,7 +45,7 @@ gitea_systemd_services_list_auto: |
 
 ########################################################################
 #                                                                      #
-# /base                                                                 #
+# /com.devture.ansible.role.systemd_service_manager                    #
 #                                                                      #
 ########################################################################
 

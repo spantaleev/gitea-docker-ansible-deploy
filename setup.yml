@@ -56,7 +56,8 @@
         - setup-traefik
         - setup-all
 
-    - role: custom/gitea_common_after
+    - when: devture_systemd_service_manager_enabled | bool
+      role: galaxy/com.devture.ansible.role.systemd_service_manager
 
     # This is pretty much last, because we want it to better serve as a "last known good configuration".
     # See: https://github.com/spantaleev/matrix-docker-ansible-deploy/pull/2217#issuecomment-1301487601
