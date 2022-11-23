@@ -6,13 +6,13 @@
 
 - name: Ensure Gitea services stopped
   ansible.builtin.service:
-    name: "{{ item }}"
+    name: "{{ item.name }}"
     state: stopped
-  with_items: "{{ gitea_services_list }}"
+  with_items: "{{ gitea_services_list | sort (attribute='priority', reverse=true) }}"
 
 - name: Ensure Gitea services started
   ansible.builtin.service:
-    name: "{{ item }}"
+    name: "{{ item.name }}"
     enabled: true
     state: "started"
-  with_items: "{{ gitea_services_list }}"
+  with_items: "{{ gitea_services_list | sort (attribute='priority') }}"
