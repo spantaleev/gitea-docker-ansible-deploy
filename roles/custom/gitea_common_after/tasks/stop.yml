@@ -4,4 +4,4 @@
   ansible.builtin.service:
     name: "{{ item.name }}"
     state: stopped
-  with_items: "{{ gitea_systemd_services_list | sort (attribute='priority', reverse=true) }}"
+  with_items: "{{ gitea_systemd_services_list | sort (attribute='priority,name', reverse=true) }}"
