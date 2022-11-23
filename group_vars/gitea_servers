@@ -32,7 +32,7 @@ gitea_playbook_traefik_installation_enabled: true
 #                                                                      #
 ########################################################################
 
-gitea_services_list: |
+gitea_services_list_auto: |
   {{
     ([{'name': 'gitea-gitea.service', 'priority': 1000}])
     +
