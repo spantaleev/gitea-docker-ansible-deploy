@@ -34,13 +34,13 @@ gitea_playbook_traefik_installation_enabled: true
 
 devture_systemd_service_manager_services_list_auto: |
   {{
-    ([{'name': 'gitea-gitea.service', 'priority': 1000}])
+    ([{'name': 'gitea-gitea.service', 'priority': 1000, 'groups': ['gitea', 'gitea-server']}])
     +
-    ([{'name': 'gitea-backup.timer', 'priority': 2500}] if gitea_backup_enabled else [])
+    ([{'name': 'gitea-backup.timer', 'priority': 2500, 'groups': ['gitea', 'gitea-backup']}] if gitea_backup_enabled else [])
     +
-    ([{'name': (devture_postgres_identifier + '.service'), 'priority': 500}] if gitea_playbook_postgres_installation_enabled else [])
+    ([{'name': (devture_postgres_identifier + '.service'), 'priority': 500, 'groups': ['gitea', 'postgres']}] if gitea_playbook_postgres_installation_enabled else [])
     +
-    ([{'name': 'devture-traefik.service', 'priority': 3000}] if gitea_playbook_traefik_installation_enabled else [])
+    ([{'name': 'devture-traefik.service', 'priority': 3000, 'groups': ['gitea', 'traefik', 'reverse-proxy']}] if gitea_playbook_traefik_installation_enabled else [])
   }}
 
 ########################################################################
