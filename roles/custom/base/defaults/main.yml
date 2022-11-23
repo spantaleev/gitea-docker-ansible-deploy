@@ -6,25 +6,25 @@ gitea_container_network: gitea
 gitea_uid: "1000"
 gitea_gid: "1000"
 
-# gitea_services_list_auto contains a list of systemd services and their priorities.
+# gitea_systemd_services_list_auto contains a list of systemd services and their priorities.
 # This list is managed by the playbook. You're not meant to override this variable.
-# To add your own items to the list, use `gitea_services_list_additional`
-gitea_services_list_auto: []
+# To add your own items to the list, use `gitea_systemd_services_list_additional`
+gitea_systemd_services_list_auto: []
 
-# gitea_services_list_additional contains your own list of systemd services and their priorities.
+# gitea_systemd_services_list_additional contains your own list of systemd services and their priorities.
 #
 # Example:
-# gitea_services_list_additional:
+# gitea_systemd_services_list_additional:
 #   - name: some-service.service
 #     priority: 1250
 #   - name: another-service.service
 #     priority: 3500
-gitea_services_list_additional: []
+gitea_systemd_services_list_additional: []
 
-# gitea_services_list contains a list of systemd services and their priorities.
-gitea_services_list: "{{ gitea_services_list_auto + gitea_services_list_additional }}"
+# gitea_systemd_services_list contains a list of systemd services and their priorities.
+gitea_systemd_services_list: "{{ gitea_systemd_services_list_auto + gitea_systemd_services_list_additional }}"
 
-gitea_services_autostart_enabled: true
+gitea_systemd_services_autostart_enabled: true
 
 # A secret used as a base, for generating various other secrets.
 # You can put any string here, but generating a strong one is preferred (e.g. `pwgen -s 64 1`).

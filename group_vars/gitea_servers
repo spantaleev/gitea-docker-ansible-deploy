@@ -32,7 +32,7 @@ gitea_playbook_traefik_installation_enabled: true
 #                                                                      #
 ########################################################################
 
-gitea_services_list_auto: |
+gitea_systemd_services_list_auto: |
   {{
     ([{'name': 'gitea-gitea.service', 'priority': 1000}])
     +
@@ -57,7 +57,7 @@ gitea_services_list_auto: |
 #                                                                      #
 ########################################################################
 
-gitea_gitea_systemd_required_services_list: |
+gitea_gitea_systemd_required_systemd_services_list: |
   {{
     (['docker.service'])
     +

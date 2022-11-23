@@ -1,6 +1,6 @@
 [Unit]
 Description=Gitea
-{% for service in gitea_gitea_systemd_required_services_list %}
+{% for service in gitea_gitea_systemd_required_systemd_services_list %}
 Requires={{ service }}
 After={{ service }}
 {% endfor %}

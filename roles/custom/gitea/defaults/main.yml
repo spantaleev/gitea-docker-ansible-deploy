@@ -14,7 +14,7 @@ gitea_gitea_config_dir_path: "{{ gitea_gitea_base_path }}/config"
 gitea_gitea_http_bind_port: ''
 gitea_gitea_ssh_bind_port: 0.0.0.0:22
 
-gitea_gitea_systemd_required_services_list: ['docker.service']
+gitea_gitea_systemd_required_systemd_services_list: ['docker.service']
 
 gitea_gitea_config_database_type: postgres
 gitea_gitea_config_database_hostname: ''
