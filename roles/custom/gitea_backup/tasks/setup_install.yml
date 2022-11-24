@@ -1,9 +1,9 @@
 ---
 
-- ansible.builtin.include_tasks: "{{ role_path }}/tasks/setup_redhat.yml"
+- ansible.builtin.include_tasks: "{{ role_path }}/tasks/setup_install_redhat.yml"
   when: ansible_os_family == 'RedHat'
 
-- ansible.builtin.include_tasks: "{{ role_path }}/tasks/setup_debian.yml"
+- ansible.builtin.include_tasks: "{{ role_path }}/tasks/setup_install_debian.yml"
   when: ansible_os_family == 'Debian'
 
 - name: Ensure Gitea backup paths exist

@@ -1,11 +1,9 @@
 ---
 
-- ansible.builtin.import_tasks: "{{ role_path }}/tasks/validate_config.yml"
-  tags:
-    - setup-gitea
-    - setup-all
+- block:
+    - ansible.builtin.include_tasks: "{{ role_path }}/tasks/validate_config.yml"
 
-- ansible.builtin.import_tasks: "{{ role_path }}/tasks/setup.yml"
+    - ansible.builtin.include_tasks: "{{ role_path }}/tasks/setup_install.yml"
   tags:
-    - setup-gitea
     - setup-all
+    - setup-gitea

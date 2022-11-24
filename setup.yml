@@ -46,9 +46,6 @@
         - setup-gitea
 
     - role: custom/gitea_backup
-      tags:
-        - setup-all
-        - setup-gitea-backup
 
     - when: gitea_playbook_traefik_installation_enabled | bool
       role: galaxy/com.devture.ansible.role.traefik

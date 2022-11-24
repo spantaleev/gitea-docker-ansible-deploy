@@ -1,7 +1,11 @@
 ---
 
-- when: gitea_backup_enabled | bool
-  block:
-    - ansible.builtin.import_tasks: "{{ role_path }}/tasks/validate_config.yml"
+- block:
+    - when: gitea_backup_enabled | bool
+      ansible.builtin.include_tasks: "{{ role_path }}/tasks/validate_config.yml"
 
-    - ansible.builtin.import_tasks: "{{ role_path }}/tasks/setup.yml"
+    - when: gitea_backup_enabled | bool
+      ansible.builtin.include_tasks: "{{ role_path }}/tasks/setup_install.yml"
+  tags:
+    - setup-all
+    - setup-gitea-backup
