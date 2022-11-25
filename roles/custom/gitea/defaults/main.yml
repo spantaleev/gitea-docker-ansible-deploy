@@ -48,3 +48,14 @@ gitea_gitea_container_labels_additional_labels: ''
 #   VAR=1
 #   ANOTHER=value
 gitea_gitea_container_additional_environment_variables: ''
+
+gitea_gitea_container_network: "{{ gitea_container_network }}"
+
+# A list of additional container networks that the Gitea container would be connected to.
+# The playbook does not create these networks, so make sure they already exist.
+#
+# Use this to expose Gitea to another reverse proxy, which runs in a different container network,
+# without exposing all other Gitea services to that other reverse-proxy.
+#
+# For background, see: https://github.com/spantaleev/matrix-docker-ansible-deploy/issues/1498
+gitea_gitea_container_additional_networks: []

@@ -29,6 +29,10 @@ gitea_playbook_traefik_role_enabled: true
 # installed in another way.
 gitea_playbook_traefik_labels_enabled: true
 
+# gitea_playbook_reverse_proxyable_services_additional_networks contains a list of additional container networks,
+# to which to connect services/containers which you might wish to reverse-proxy to.
+gitea_playbook_reverse_proxyable_services_additional_networks: "{{ [devture_traefik_container_network] if devture_traefik_enabled and devture_traefik_container_network != gitea_container_network else [] }}"
+
 ########################################################################
 #                                                                      #
 # /Playbook                                                            #
@@ -74,6 +78,8 @@ gitea_gitea_systemd_required_systemd_services_list: |
     +
     ([devture_postgres_identifier ~ '.service'] if devture_postgres_enabled else [])
   }}
+
+gitea_gitea_container_additional_networks: "{{ gitea_playbook_reverse_proxyable_services_additional_networks }}"
 
 gitea_gitea_container_labels_traefik_enabled: "{{ gitea_playbook_traefik_labels_enabled }}"
 
@@ -165,8 +171,6 @@ devture_playbook_state_preserver_commit_hash_preservation_dst: "{{ gitea_base_pa
 # To completely disable the Traefik role from running, use `gitea_playbook_traefik_role_enabled: false`.
 # See the comment there for more details about why we have both `devture_traefik_enabled` and `gitea_playbook_traefik_role_enabled`.
 devture_traefik_enabled: "{{ gitea_playbook_traefik_role_enabled }}"
-
-devture_traefik_container_network: "{{ gitea_container_network }}"
 
 devture_traefik_uid: "{{ gitea_uid }}"
 devture_traefik_gid: "{{ gitea_gid }}"

@@ -10,6 +10,8 @@ There are multiple variables in the playbook which control Traefik integration:
 
 - `gitea_playbook_traefik_labels_enabled` (default `true`) - controls whether Traefik container labels are attached to services. You may disable Traefik with the variables above, yet still keep attaching labels, so that a separately-installed Traefik instance can reverse-proxy to these services. Even if you're not using Traefik at all, flipping this to `false` is generally not necessary, since having a few labels on containers doesn't hurt
 
+- `gitea_playbook_reverse_proxyable_services_additional_networks` (default `[traefik]` when `devture_traefik_enabled`) - a list of container networks that reverse-proxyable services (like Gitea) should be attached to, so that a reverse-proxy (like Traefik) which lives on a separate network can reach them
+
 Below is an example of **disabling Traefik completely** and letting you reverse-proxy using other means:
 
 ```yaml
@@ -28,4 +30,3 @@ gitea_gitea_http_bind_port: '127.0.0.1:3000'
 # You can reverse-proxy to it from another machine on the public or private network.
 # gitea_gitea_http_bind_port: '3000'
 ```
-

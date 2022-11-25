@@ -13,12 +13,15 @@ Below, we offer some suggestions for how to make this playbook more interoperabl
 
 ## Disabling Traefik installation
 
-If you're installing [Traefik](https://traefik.io) on your server in another way, disable this component from the playbook:
+If you're installing [Traefik](https://traefik.io) on your server in another way:
 
 ```yaml
+# Disable Traefik installation by the playbook
 gitea_playbook_traefik_role_enabled: false
 
-gitea_container_network: 'YOUR_TRAEFIK_NETWORK'
+# But still attach services to some network (e.g. traefik),
+# so that a Traefik instance running in that network can reach these services
+gitea_playbook_reverse_proxyable_services_additional_networks: [traefik]
 ```
 
 All services (among which the `gitea-gitea` container) have container labels attached, so that a Traefik instance can reverse-proxy to them. See `roles/custom/gitea/templates/labels.j2` for an example.
