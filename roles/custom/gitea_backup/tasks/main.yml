@@ -9,3 +9,5 @@
   tags:
     - setup-all
     - setup-gitea-backup
+    - install-all
+    - install-gitea-backup

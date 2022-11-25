@@ -5,8 +5,11 @@
   tags:
     - setup-all
     - setup-gitea
+    - install-all
+    - install-gitea
 
 - block:
     - ansible.builtin.include_tasks: "{{ role_path }}/tasks/setup.yml"
   tags:
     - setup-all
+    - install-all

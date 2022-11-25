@@ -21,7 +21,7 @@ gitea_playbook_traefik_role_enabled: false
 gitea_container_network: 'YOUR_TRAEFIK_NETWORK'
 ```
 
-All services (among which the `gitea-gitea` container) have container labels attached, so that a Traefik instance can reverse-proxy to it. See `roles/custom/gitea/templates/labels.j2` for an example.
+All services (among which the `gitea-gitea` container) have container labels attached, so that a Traefik instance can reverse-proxy to them. See `roles/custom/gitea/templates/labels.j2` for an example.
 
 Whether services are labelled is controlled by the `gitea_playbook_traefik_labels_enabled` variable (see `group_vars/gitea_servers`). You can disable the Traefik role and still have services labelled, so that they're discoverable by a separately-installed Traefik service.
 
