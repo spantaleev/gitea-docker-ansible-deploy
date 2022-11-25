@@ -28,6 +28,7 @@ gitea_gitea_config_database_password: ''
 #
 # To inject your own other container labels, see `gitea_gitea_container_labels_additional_labels`.
 gitea_gitea_container_labels_traefik_enabled: true
+gitea_gitea_container_labels_traefik_docker_network: "{{ gitea_gitea_container_network }}"
 gitea_gitea_container_labels_traefik_rule: 'Host(`{{ gitea_server_fqn_gitea }}`)'
 gitea_gitea_container_labels_traefik_entrypoints: web-secure
 gitea_gitea_container_labels_traefik_tls_certResolver: default  # noqa var-naming

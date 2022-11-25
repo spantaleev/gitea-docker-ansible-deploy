@@ -29,9 +29,21 @@ gitea_playbook_traefik_role_enabled: true
 # installed in another way.
 gitea_playbook_traefik_labels_enabled: true
 
+# gitea_playbook_reverse_proxyable_services_container_network specifies the main container network for reverse-proxyable services.
+#
+# It may be tempting to make the main network the Gitea network. However, this means that the Traefik network needs to be additional.
+# Traefik does not work well with services which belong to another network and are connected to the Traefik network additionally (subsequently).
+# Traefik expects containers to be reachable as soon as they start.
+# Thus, the Traefik network needs to be the main one.
+gitea_playbook_reverse_proxyable_services_container_network: "{{ devture_traefik_container_network if devture_traefik_enabled else gitea_container_network }}"
+
 # gitea_playbook_reverse_proxyable_services_additional_networks contains a list of additional container networks,
 # to which to connect services/containers which you might wish to reverse-proxy to.
-gitea_playbook_reverse_proxyable_services_additional_networks: "{{ [devture_traefik_container_network] if devture_traefik_enabled and devture_traefik_container_network != gitea_container_network else [] }}"
+#
+# When Traefik is enabled, we put reverse-proxyable services on the Traefik network by default,
+# and we connect them to the Gitea network as an additional network.
+# See `nextcloud_playbook_reverse_proxyable_services_container_network`
+gitea_playbook_reverse_proxyable_services_additional_networks: "{{ [gitea_container_network] if devture_traefik_enabled and devture_traefik_container_network != gitea_container_network else [] }}"
 
 ########################################################################
 #                                                                      #
@@ -78,6 +90,8 @@ gitea_gitea_systemd_required_systemd_services_list: |
     +
     ([devture_postgres_identifier ~ '.service'] if devture_postgres_enabled else [])
   }}
+
+gitea_gitea_container_network: "{{ gitea_playbook_reverse_proxyable_services_container_network }}"
 
 gitea_gitea_container_additional_networks: "{{ gitea_playbook_reverse_proxyable_services_additional_networks }}"
 

@@ -1,5 +1,8 @@
 {% if gitea_gitea_container_labels_traefik_enabled %}
 traefik.enable=true
+{% if gitea_gitea_container_labels_traefik_docker_network %}
+traefik.docker.network={{ gitea_gitea_container_labels_traefik_docker_network }}
+{% endif %}
 traefik.http.routers.gitea-gitea.rule={{ gitea_gitea_container_labels_traefik_rule }}
 traefik.http.routers.gitea-gitea.entrypoints={{ gitea_gitea_container_labels_traefik_entrypoints }}
 traefik.http.routers.gitea-gitea.tls.certResolver={{ gitea_gitea_container_labels_traefik_tls_certResolver }}
