@@ -86,7 +86,7 @@ gitea_gitea_container_labels_traefik_enabled: "{{ gitea_playbook_traefik_labels_
 gitea_gitea_config_database_hostname: "{{ devture_postgres_identifier if devture_postgres_enabled else '' }}"
 gitea_gitea_config_database_port: "{{ '5432' if devture_postgres_enabled else '' }}"
 gitea_gitea_config_database_username: "gitea"
-gitea_gitea_config_database_password: "{{ '%s' | format(gitea_generic_secret_key) | password_hash('sha512', 'db.gitea') | to_uuid }}"
+gitea_gitea_config_database_password: "{{ '%s' | format(gitea_generic_secret_key) | password_hash('sha512', 'db.gitea', rounds=655555) | to_uuid }}"
 
 ########################################################################
 #                                                                      #
