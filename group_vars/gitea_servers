@@ -10,9 +10,24 @@
 # Also see `devture_docker_sdk_for_python_installation_enabled`.
 gitea_playbook_docker_installation_enabled: true
 
-# Controls whether to install Traefik or not
-# See the `com.devture.ansible.role.traefik` section below for configuration.
-gitea_playbook_traefik_installation_enabled: true
+# Controls whether to run the Traefik role or not
+# See the `com.devture.ansible.role.traefik` section below for role configuration.
+#
+# There's a difference between `devture_traefik_enabled` and `gitea_playbook_traefik_role_enabled`.
+# `devture_traefik_enabled` controls what the Traefik role would do - when not enabled, it will run uninstall tasks, etc.
+# `gitea_playbook_traefik_role_enabled` controls if the Traefik role would even run at all.
+#
+# Sometimes, you're installing Traefik via a different (related playbook) which uses the same role.
+# In such cases, you'd like to disable the role in this playbook from bothering with Traefik at all (`gitea_playbook_traefik_role_enabled: false`).
+# If you used `devture_traefik_enabled: false` + `gitea_playbook_traefik_role_enabled: true` instead, you'd see the Treafik role here
+# try to delete Traefik data (`/devture-traefik`) installed by the other playbook.
+gitea_playbook_traefik_role_enabled: true
+
+# Controls whether to attach Traefik labels to services.
+# This is separate from `devture_traefik_enabled` and `gitea_playbook_traefik_role_enabled`,
+# because you may wish to disable Traefik installation by the playbook, yet still use Traefik
+# installed in another way.
+gitea_playbook_traefik_labels_enabled: true
 
 ########################################################################
 #                                                                      #
@@ -36,7 +51,7 @@ devture_systemd_service_manager_services_list_auto: |
     +
     ([{'name': (devture_postgres_identifier + '.service'), 'priority': 500, 'groups': ['gitea', 'postgres']}] if devture_postgres_enabled else [])
     +
-    ([{'name': 'devture-traefik.service', 'priority': 3000, 'groups': ['gitea', 'traefik', 'reverse-proxies']}] if gitea_playbook_traefik_installation_enabled else [])
+    ([{'name': 'devture-traefik.service', 'priority': 3000, 'groups': ['gitea', 'traefik', 'reverse-proxies']}] if devture_traefik_enabled else [])
   }}
 
 ########################################################################
@@ -60,7 +75,7 @@ gitea_gitea_systemd_required_systemd_services_list: |
     ([devture_postgres_identifier ~ '.service'] if devture_postgres_enabled else [])
   }}
 
-gitea_gitea_container_labels_traefik_enabled: "{{ gitea_playbook_traefik_installation_enabled }}"
+gitea_gitea_container_labels_traefik_enabled: "{{ gitea_playbook_traefik_labels_enabled }}"
 
 gitea_gitea_config_database_hostname: "{{ devture_postgres_identifier if devture_postgres_enabled else '' }}"
 gitea_gitea_config_database_port: "{{ '5432' if devture_postgres_enabled else '' }}"
@@ -147,7 +162,9 @@ devture_playbook_state_preserver_commit_hash_preservation_dst: "{{ gitea_base_pa
 #                                                                      #
 ########################################################################
 
-# To completely disable installing Traefik, use `gitea_playbook_traefik_installation_enabled: false`.
+# To completely disable the Traefik role from running, use `gitea_playbook_traefik_role_enabled: false`.
+# See the comment there for more details about why we have both `devture_traefik_enabled` and `gitea_playbook_traefik_role_enabled`.
+devture_traefik_enabled: "{{ gitea_playbook_traefik_role_enabled }}"
 
 devture_traefik_container_network: "{{ gitea_container_network }}"
 

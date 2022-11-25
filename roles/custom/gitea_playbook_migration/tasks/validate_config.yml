@@ -18,3 +18,5 @@
     - {'old': 'gitea_systemd_services_autostart_enabled', 'new': 'devture_systemd_service_manager_services_autostart_enabled'}
 
     - {'old': 'gitea_playbook_postgres_installation_enabled', 'new': 'devture_postgres_enabled'}
+
+    - {'old': 'gitea_playbook_traefik_installation_enabled', 'new': 'gitea_playbook_traefik_role_enabled'}

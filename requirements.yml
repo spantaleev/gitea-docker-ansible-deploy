@@ -19,10 +19,10 @@
   version: ff2fd42e1c1a9e28e3312bbd725395f9c2fc7f16
 
 - src: git+https://github.com/devture/com.devture.ansible.role.postgres.git
-  version: ce810cf4edcaa3fa5f268c7ce87a04b53c7b7f66
+  version: 55998f4cb1a5212578e8e296c6a30d6ee1f0df58
 
 - src: git+https://github.com/devture/com.devture.ansible.role.traefik.git
-  version: 445ab74a7d0962161afcd0bdb30a8f9c80341d3c
+  version: 903cda64443cba1cb2b9d7c1a111a0897c82783f
 
 - src: git+https://github.com/devture/com.devture.ansible.role.systemd_service_manager.git
   version: 6ccb88ac5fc27e1e70afcd48278ade4b564a9096
