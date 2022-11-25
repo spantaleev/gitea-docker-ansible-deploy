@@ -115,7 +115,8 @@ devture_postgres_container_network: "{{ gitea_container_network }}"
 devture_postgres_uid: "{{ gitea_uid }}"
 devture_postgres_gid: "{{ gitea_gid }}"
 
-devture_postgres_vacuum_database: "gitea"
+devture_postgres_vacuum_default_databases_list:
+  - "{{ gitea_gitea_config_database_username }}"
 
 devture_postgres_systemd_services_to_stop_for_maintenance_list: |
   {{
