@@ -35,10 +35,8 @@
       tags:
         - setup-all
 
-    # This role exposes various tags (setup-postgres, setup-all, upgrade-postgres, import-postgres, etc.)
-    # so we don't tag it here.
-    - when: gitea_playbook_postgres_installation_enabled | bool
-      role: galaxy/com.devture.ansible.role.postgres
+    # This role exposes various tags (setup-postgres, setup-all, upgrade-postgres, import-postgres, etc.), so we don't tag it here.
+    - role: galaxy/com.devture.ansible.role.postgres
 
     - role: custom/gitea
       tags:

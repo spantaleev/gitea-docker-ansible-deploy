@@ -6,7 +6,7 @@ To use your own Postgres server, use a `vars.yml` configuration like this:
 
 ```yaml
 # Disable the integrated Postgres service
-gitea_playbook_postgres_installation_enabled: false
+devture_postgres_enabled: false
 
 # Uncomment and possibly change this, if you'd like to use another database engine.
 # gitea_gitea_config_database_type: mysql

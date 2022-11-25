@@ -25,7 +25,7 @@ trap restart_gitea EXIT
 
 date=`date +"%Y%m%d%H%M"`
 
-{% if gitea_playbook_postgres_installation_enabled %}
+{% if devture_postgres_enabled %}
 {{ devture_postgres_bin_path }}/dump-all {{ gitea_backup_data_path }}
 if [ $? -ne 0 ]; then
 	echo "Postgres dump failed"
@@ -35,7 +35,7 @@ fi
 
 tar cP \
 	--exclude={{ gitea_backup_data_path }}/gitea-latest-backup.tar.gpg \
-	{% if gitea_playbook_postgres_installation_enabled %}
+	{% if devture_postgres_enabled %}
 	--exclude={{ devture_postgres_data_path }} \
 	{% endif %}
 	{{ gitea_backup_data_path }}/latest-dump.sql.gz \

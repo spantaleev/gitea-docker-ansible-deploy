@@ -19,7 +19,7 @@
   version: ff2fd42e1c1a9e28e3312bbd725395f9c2fc7f16
 
 - src: git+https://github.com/devture/com.devture.ansible.role.postgres.git
-  version: 0dfd1d805be6c45184d903057b08f2255da32931
+  version: ce810cf4edcaa3fa5f268c7ce87a04b53c7b7f66
 
 - src: git+https://github.com/devture/com.devture.ansible.role.traefik.git
   version: 445ab74a7d0962161afcd0bdb30a8f9c80341d3c

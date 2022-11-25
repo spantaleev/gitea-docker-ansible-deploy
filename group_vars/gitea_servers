@@ -10,10 +10,6 @@
 # Also see `devture_docker_sdk_for_python_installation_enabled`.
 gitea_playbook_docker_installation_enabled: true
 
-# Controls whether to install Postgres or not
-# See the `com.devture.ansible.role.postgres` section below for configuration.
-gitea_playbook_postgres_installation_enabled: true
-
 # Controls whether to install Traefik or not
 # See the `com.devture.ansible.role.traefik` section below for configuration.
 gitea_playbook_traefik_installation_enabled: true
@@ -38,7 +34,7 @@ devture_systemd_service_manager_services_list_auto: |
     +
     ([{'name': 'gitea-backup.timer', 'priority': 2500, 'groups': ['gitea', 'gitea-backup']}] if gitea_backup_enabled else [])
     +
-    ([{'name': (devture_postgres_identifier + '.service'), 'priority': 500, 'groups': ['gitea', 'postgres']}] if gitea_playbook_postgres_installation_enabled else [])
+    ([{'name': (devture_postgres_identifier + '.service'), 'priority': 500, 'groups': ['gitea', 'postgres']}] if devture_postgres_enabled else [])
     +
     ([{'name': 'devture-traefik.service', 'priority': 3000, 'groups': ['gitea', 'traefik', 'reverse-proxies']}] if gitea_playbook_traefik_installation_enabled else [])
   }}
@@ -61,13 +57,13 @@ gitea_gitea_systemd_required_systemd_services_list: |
   {{
     (['docker.service'])
     +
-    ([devture_postgres_identifier ~ '.service'] if gitea_playbook_postgres_installation_enabled else [])
+    ([devture_postgres_identifier ~ '.service'] if devture_postgres_enabled else [])
   }}
 
 gitea_gitea_container_labels_traefik_enabled: "{{ gitea_playbook_traefik_installation_enabled }}"
 
-gitea_gitea_config_database_hostname: "{{ devture_postgres_identifier if gitea_playbook_postgres_installation_enabled else '' }}"
-gitea_gitea_config_database_port: "{{ '5432' if gitea_playbook_postgres_installation_enabled else '' }}"
+gitea_gitea_config_database_hostname: "{{ devture_postgres_identifier if devture_postgres_enabled else '' }}"
+gitea_gitea_config_database_port: "{{ '5432' if devture_postgres_enabled else '' }}"
 gitea_gitea_config_database_username: "gitea"
 gitea_gitea_config_database_password: "{{ '%s' | format(gitea_generic_secret_key) | password_hash('sha512', 'db.gitea') | to_uuid }}"
 
@@ -85,7 +81,7 @@ gitea_gitea_config_database_password: "{{ '%s' | format(gitea_generic_secret_key
 #                                                                      #
 ########################################################################
 
-# To completely disable installing Postgres, use `gitea_playbook_postgres_installation_enabled: false`.
+# To completely disable installing Postgres, use `devture_postgres_enabled: false`.
 
 devture_postgres_identifier: gitea-postgres
 

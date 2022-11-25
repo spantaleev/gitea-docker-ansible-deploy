@@ -40,7 +40,7 @@ gitea_playbook_docker_installation_enabled: false
 If you're installing [PostgreSQL](https://www.postgresql.org/) on your server in another way or wish to use an external Postgres server or another type of database, disable this component from the playbook:
 
 ```yaml
-gitea_playbook_postgres_installation_enabled: false
+devture_postgres_enabled: false
 ```
 
 Also, refer to the [configuring the database](configuring-playbook-database.md) documentation page for more information on using another database.

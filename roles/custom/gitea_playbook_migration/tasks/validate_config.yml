@@ -16,3 +16,5 @@
 
     - {'old': 'gitea_systemd_services_list', 'new': 'devture_systemd_service_manager_services_list_auto'}
     - {'old': 'gitea_systemd_services_autostart_enabled', 'new': 'devture_systemd_service_manager_services_autostart_enabled'}
+
+    - {'old': 'gitea_playbook_postgres_installation_enabled', 'new': 'devture_postgres_enabled'}
