@@ -134,7 +134,7 @@ devture_postgres_systemd_services_to_stop_for_maintenance_list: |
     (['gitea-gitea.service'])
   }}
 
-devture_postgres_additional_databases: |
+devture_postgres_managed_databases_auto: |
   {{
     [{
       'name': gitea_gitea_config_database_name,
