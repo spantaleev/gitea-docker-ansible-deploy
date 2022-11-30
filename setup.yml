@@ -50,6 +50,8 @@
         - setup-all
         - setup-gitea
 
+    - role: galaxy/com.devture.ansible.role.postgres_backup
+
     - role: custom/gitea_backup
 
     - when: gitea_playbook_traefik_role_enabled | bool
