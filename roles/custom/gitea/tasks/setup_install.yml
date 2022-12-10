@@ -35,9 +35,3 @@
     src: "{{ role_path }}/templates/gitea-gitea.service.j2"
     dest: "{{ devture_systemd_docker_base_systemd_path }}/gitea-gitea.service"
     mode: 0640
-  register: gitea_gitea_systemd_service_result
-
-- name: Ensure systemd reloaded after gitea-gitea.service installation
-  ansible.builtin.service:
-    daemon_reload: true
-  when: gitea_gitea_systemd_service_result.changed
