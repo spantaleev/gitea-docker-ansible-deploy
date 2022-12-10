@@ -38,17 +38,11 @@
         - install-all
 
     - role: custom/base
-      tags:
-        - setup-all
-        - install-all
 
     # This role exposes various tags (setup-postgres, setup-all, upgrade-postgres, import-postgres, etc.), so we don't tag it here.
     - role: galaxy/com.devture.ansible.role.postgres
 
     - role: custom/gitea
-      tags:
-        - setup-all
-        - setup-gitea
 
     - role: galaxy/com.devture.ansible.role.postgres_backup
 
