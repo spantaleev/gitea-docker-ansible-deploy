@@ -69,6 +69,10 @@ devture_systemd_service_manager_services_list_auto: |
     +
     ([{'name': (devture_postgres_backup_identifier + '.service'), 'priority': 5000, 'groups': ['gitea', 'backup', 'postgres-backup']}] if devture_postgres_backup_enabled else [])
     +
+    ([{'name': (devture_woodpecker_ci_server_identifier + '.service'), 'priority': 4000, 'groups': ['woodpecker', 'ci', 'ci-server']}] if devture_woodpecker_ci_server_enabled else [])
+    +
+    ([{'name': (devture_woodpecker_ci_agent_identifier + '.service'), 'priority': 4100, 'groups': ['woodpecker', 'ci', 'ci-agent']}] if devture_woodpecker_ci_agent_enabled else [])
+    +
     ([{'name': 'devture-traefik.service', 'priority': 3000, 'groups': ['gitea', 'traefik', 'reverse-proxies']}] if gitea_playbook_traefik_role_enabled else [])
   }}
 
@@ -114,6 +118,95 @@ gitea_gitea_config_database_password: "{{ '%s' | format(gitea_generic_secret_key
 
 ########################################################################
 #                                                                      #
+# woodpecker-ci-server                                                 #
+#                                                                      #
+########################################################################
+
+devture_woodpecker_ci_server_enabled: false
+
+devture_woodpecker_ci_server_identifier: gitea-woodpecker-ci-server
+
+devture_woodpecker_ci_server_uid: "{{ gitea_uid }}"
+devture_woodpecker_ci_server_gid: "{{ gitea_gid }}"
+
+devture_woodpecker_ci_server_base_path: "{{ gitea_base_path }}/woodpecker-ci-server"
+
+devture_woodpecker_ci_server_systemd_required_systemd_services_list: |
+  {{
+    (['docker.service'])
+    +
+    ([devture_postgres_identifier ~ '.service'] if devture_postgres_enabled else [])
+  }}
+
+devture_woodpecker_ci_server_container_network: "{{ gitea_playbook_reverse_proxyable_services_container_network }}"
+
+devture_woodpecker_ci_server_container_additional_networks: "{{ gitea_playbook_reverse_proxyable_services_additional_networks }}"
+
+devture_woodpecker_ci_server_container_labels_traefik_enabled: "{{ gitea_playbook_traefik_labels_enabled }}"
+
+devture_woodpecker_ci_server_provider: gitea
+
+# We must use the public URL here, because it's also used for login redirects
+devture_woodpecker_ci_server_config_gitea_url: "https://{{ gitea_server_fqn_gitea }}"
+
+devture_woodpecker_ci_server_container_add_host_domain_name: "{{ gitea_server_fqn_gitea }}"
+devture_woodpecker_ci_server_container_add_host_ip_address: "{{ ansible_host }}"
+
+devture_woodpecker_ci_server_database_driver: postgres
+devture_woodpecker_ci_server_database_datasource: "postgres://{{ devture_woodpecker_ci_server_database_datasource_username }}:{{ devture_woodpecker_ci_server_database_datasource_password }}@{{ devture_woodpecker_ci_server_database_datasource_hostname }}:{{ devture_woodpecker_ci_server_database_datasource_port }}/{{ devture_woodpecker_ci_server_database_datasource_db_name }}?sslmode=disable"
+
+devture_woodpecker_ci_server_database_datasource_hostname: "{{ devture_postgres_identifier if devture_postgres_enabled else '' }}"
+devture_woodpecker_ci_server_database_datasource_port: "{{ '5432' if devture_postgres_enabled else '' }}"
+devture_woodpecker_ci_server_database_datasource_username: woodpecker_ci_server
+devture_woodpecker_ci_server_database_datasource_password: "{{ '%s' | format(gitea_generic_secret_key) | password_hash('sha512', 'woodpecker.ci', rounds=655555) | to_uuid }}"
+devture_woodpecker_ci_server_database_datasource_db_name: woodpecker_ci_server
+
+########################################################################
+#                                                                      #
+# /woodpecker-ci-server                                                #
+#                                                                      #
+########################################################################
+
+
+
+########################################################################
+#                                                                      #
+# woodpecker-ci-agent                                                  #
+#                                                                      #
+########################################################################
+
+devture_woodpecker_ci_agent_enabled: false
+
+devture_woodpecker_ci_agent_identifier: gitea-woodpecker-ci-agent
+
+devture_woodpecker_ci_agent_uid: "{{ gitea_uid }}"
+devture_woodpecker_ci_agent_gid: "{{ gitea_gid }}"
+
+devture_woodpecker_ci_agent_base_path: "{{ gitea_base_path }}/woodpecker-ci-agent"
+
+devture_woodpecker_ci_agent_systemd_required_systemd_services_list: |
+  {{
+    (['docker.service'])
+    +
+    ([devture_woodpecker_ci_server_identifier ~ '.service'] if devture_woodpecker_ci_server_enabled else [])
+  }}
+
+devture_woodpecker_ci_agent_container_network: "{{ gitea_container_network }}"
+
+devture_woodpecker_ci_agent_config_server: "{{ (devture_woodpecker_ci_server_identifier + ':' + devture_woodpecker_ci_server_config_grpc_addr_port | string) if devture_woodpecker_ci_agent_enabled else '' }}"
+
+devture_woodpecker_ci_agent_config_agent_secret: "{{ devture_woodpecker_ci_server_config_agent_secret if devture_woodpecker_ci_agent_enabled else '' }}"
+
+########################################################################
+#                                                                      #
+# /woodpecker-ci-agent                                                 #
+#                                                                      #
+########################################################################
+
+
+
+########################################################################
+#                                                                      #
 # com.devture.ansible.role.postgres                                    #
 #                                                                      #
 ########################################################################
@@ -143,6 +236,12 @@ devture_postgres_managed_databases_auto: |
       'username': gitea_gitea_config_database_username,
       'password': gitea_gitea_config_database_password,
     }]
+    +
+    ([{
+      'name': devture_woodpecker_ci_server_database_datasource_db_name,
+      'username': devture_woodpecker_ci_server_database_datasource_username,
+      'password': devture_woodpecker_ci_server_database_datasource_password,
+    }] if devture_woodpecker_ci_server_enabled else [])
   }}
 
 ########################################################################

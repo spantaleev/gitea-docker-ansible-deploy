@@ -24,6 +24,12 @@
 - src: git+https://github.com/devture/com.devture.ansible.role.postgres_backup.git
   version: 77b1f9ae1aafa31c9078178c1036bf744c99d08b
 
+- src: git+https://github.com/devture/com.devture.ansible.role.woodpecker_ci_server.git
+  version: 7fc37181bd0602cf9ed3fbdd626a8b27490b4fdd
+
+- src: git+https://github.com/devture/com.devture.ansible.role.woodpecker_ci_agent.git
+  version: e530b7103bf5e8c4b7f7e7e162506845df8a36f0
+
 - src: git+https://github.com/devture/com.devture.ansible.role.traefik.git
   version: 0b1c06cbeb730425cdc1a251df5212ddd8cad8e0
 

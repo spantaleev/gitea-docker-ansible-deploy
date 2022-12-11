@@ -27,6 +27,8 @@ However, you may wish to tweak a few other things before installing (or any time
 
 - [configuring backups](configuring-playbook-backups.md)
 
+- [configuring Woodpecker CI](configuring-playbook-woodpecker-ci.md) - for installing a [Woodpecker CI](https://woodpecker-ci.org/) server and agent to run your [Continuous Integration](https://en.wikipedia.org/wiki/Continuous_integration) jobs
+
 You may also take a look at the various `defaults/main.yml` files in `roles/` and see if there's anything you'd like to copy over and override in your `vars.yml` configuration file.
 
 

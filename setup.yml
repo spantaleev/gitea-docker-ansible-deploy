@@ -48,6 +48,9 @@
 
     - role: custom/gitea_backup
 
+    - role: galaxy/com.devture.ansible.role.woodpecker_ci_server
+    - role: galaxy/com.devture.ansible.role.woodpecker_ci_agent
+
     - when: gitea_playbook_traefik_role_enabled | bool
       role: galaxy/com.devture.ansible.role.traefik
 

@@ -25,7 +25,9 @@ Using this playbook, you can get the following services configured on your serve
 
 - (optional) free [Let's Encrypt](https://letsencrypt.org/) SSL certificate, which secures the connection to the Gitea server
 
-- [backups](docs/configuring-playbook-backups.md)
+- (optional) [backups](docs/configuring-playbook-backups.md)
+
+- (optional) [Woodpecker CI](https://woodpecker-ci.org/) server + agent setup integrated with the Gitea server - for running your [Continuous Integration](https://en.wikipedia.org/wiki/Continuous_integration) jobs
 
 Basically, this playbook aims to get you up-and-running with all the basic necessities around Gitea.
 
