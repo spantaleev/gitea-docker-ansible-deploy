@@ -129,7 +129,7 @@ devture_woodpecker_ci_server_identifier: gitea-woodpecker-ci-server
 devture_woodpecker_ci_server_uid: "{{ gitea_uid }}"
 devture_woodpecker_ci_server_gid: "{{ gitea_gid }}"
 
-devture_woodpecker_ci_server_base_path: "{{ gitea_base_path }}/woodpecker-ci-server"
+devture_woodpecker_ci_server_base_path: "{{ gitea_base_path }}/woodpecker-ci/server"
 
 devture_woodpecker_ci_server_systemd_required_systemd_services_list: |
   {{
@@ -182,7 +182,7 @@ devture_woodpecker_ci_agent_identifier: gitea-woodpecker-ci-agent
 devture_woodpecker_ci_agent_uid: "{{ gitea_uid }}"
 devture_woodpecker_ci_agent_gid: "{{ gitea_gid }}"
 
-devture_woodpecker_ci_agent_base_path: "{{ gitea_base_path }}/woodpecker-ci-agent"
+devture_woodpecker_ci_agent_base_path: "{{ gitea_base_path }}/woodpecker-ci/agent"
 
 devture_woodpecker_ci_agent_systemd_required_systemd_services_list: |
   {{
