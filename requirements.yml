@@ -25,7 +25,7 @@
   version: 77b1f9ae1aafa31c9078178c1036bf744c99d08b
 
 - src: git+https://github.com/devture/com.devture.ansible.role.woodpecker_ci_server.git
-  version: d06ca8b111842234650a39b7287e378523c0d947
+  version: 6ae10512d43ac991a742f58e3211f9d8fa589113
 
 - src: git+https://github.com/devture/com.devture.ansible.role.woodpecker_ci_agent.git
   version: 421571a843cf47115d806656199706274dfd6287

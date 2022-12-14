@@ -10,7 +10,7 @@ There are multiple variables in the playbook which control Traefik integration:
 
 - `gitea_playbook_traefik_labels_enabled` (default `true`) - controls whether Traefik container labels are attached to services. You may disable Traefik with the variables above, yet still keep attaching labels, so that a separately-installed Traefik instance can reverse-proxy to these services. If you're not using Traefik at all, flip this to `false`
 
-- `gitea_playbook_reverse_proxyable_services_additional_network` (default `traefik`) - additional container network for reverse-proxyable services (like `gitea-gitea`). We default these to the `traefik` network, because Traefik needs to be able to reach them as soon as they start.
+- `gitea_playbook_reverse_proxyable_services_additional_network` (default `traefik`) - additional container network for reverse-proxyable services (like `gitea-gitea`). We default these to the `traefik` network for the default Traefik installation's benefit, but you can set this to another network
 
 Below is an example of **disabling Traefik completely** and letting you reverse-proxy using other means:
 
