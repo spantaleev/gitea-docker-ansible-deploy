@@ -13,7 +13,7 @@
     state: directory
     mode: "0750"
     owner: "{{ gitea_uid }}"
-    group: "{{ gitea_uid }}"
+    group: "{{ gitea_gid }}"
   with_items:
     - "{{ gitea_gitea_base_path }}"
     - "{{ gitea_gitea_data_dir_path }}"
@@ -24,7 +24,7 @@
     src: "{{ role_path }}/templates/{{ item }}.j2"
     dest: "{{ gitea_gitea_base_path }}/{{ item }}"
     owner: "{{ gitea_uid }}"
-    group: "{{ gitea_uid }}"
+    group: "{{ gitea_gid }}"
     mode: 0640
   with_items:
     - env

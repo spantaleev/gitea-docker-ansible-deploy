@@ -12,7 +12,7 @@
     state: directory
     mode: "0750"
     owner: "{{ gitea_uid }}"
-    group: "{{ gitea_uid }}"
+    group: "{{ gitea_gid }}"
   with_items:
     - "{{ gitea_backup_base_path }}"
     - "{{ gitea_backup_bin_path }}"

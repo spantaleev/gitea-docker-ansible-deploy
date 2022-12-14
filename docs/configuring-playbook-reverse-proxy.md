@@ -18,7 +18,7 @@ Below is an example of **disabling Traefik completely** and letting you reverse-
 # Disable the Traefik role completely
 gitea_playbook_traefik_role_enabled: false
 
-# If you're not using Traefik, you can also disable putting Traefik labels on services
+# If you're not using Traefik, disable putting Traefik labels on services
 gitea_playbook_traefik_labels_enabled: false
 
 # Expose the Gitea container's webserver to port 3000 on the loopback network interface only.

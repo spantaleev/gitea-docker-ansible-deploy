@@ -6,7 +6,7 @@
     state: directory
     mode: "0750"
     owner: "{{ gitea_uid }}"
-    group: "{{ gitea_uid }}"
+    group: "{{ gitea_gid }}"
 
 # `docker_network` doesn't work as expected when the given network
 # is a substring of a network that already exists.
