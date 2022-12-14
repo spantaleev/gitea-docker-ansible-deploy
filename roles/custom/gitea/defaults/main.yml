@@ -28,7 +28,7 @@ gitea_gitea_config_database_password: ''
 #
 # To inject your own other container labels, see `gitea_gitea_container_labels_additional_labels`.
 gitea_gitea_container_labels_traefik_enabled: true
-gitea_gitea_container_labels_traefik_docker_network: "{{ gitea_gitea_container_network }}"
+gitea_gitea_container_labels_traefik_docker_network: ''
 gitea_gitea_container_labels_traefik_rule: 'Host(`{{ gitea_server_fqn_gitea }}`)'
 gitea_gitea_container_labels_traefik_entrypoints: web-secure
 gitea_gitea_container_labels_traefik_tls_certResolver: default  # noqa var-naming
@@ -52,11 +52,11 @@ gitea_gitea_container_additional_environment_variables: ''
 
 gitea_gitea_container_network: "{{ gitea_container_network }}"
 
-# A list of additional container networks that the Gitea container would be connected to.
+# A list of additional container networks that the container would be connected to.
 # The playbook does not create these networks, so make sure they already exist.
 #
-# Use this to expose Gitea to another reverse proxy, which runs in a different container network,
-# without exposing all other Gitea services to that other reverse-proxy.
+# Use this to expose the container to another reverse proxy, which runs in a different container network,
+# without exposing all other container services to that other reverse-proxy.
 #
 # For background, see: https://github.com/spantaleev/matrix-docker-ansible-deploy/issues/1498
 gitea_gitea_container_additional_networks: []

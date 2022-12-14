@@ -4,15 +4,13 @@ By default, this playbook installs a [Traefik](https://traefik.io/) reverse-prox
 
 There are multiple variables in the playbook which control Traefik integration:
 
-- `devture_traefik_enabled` (same as `gitea_playbook_traefik_role_enabled` by default - `true`) - controls whether the Traefik role's functionality is enabled or not. If disabled, the role will try to uninstall Traefik, etc. Flipping this to `false` disables Traefik, but also potentially uninstalls and deletes data in `/devture-traefik`.
+- `devture_traefik_enabled` (same value as `gitea_playbook_traefik_role_enabled` by default - `true`) - controls whether the Traefik role's functionality is enabled or not. If disabled, the role will try to uninstall Traefik, etc. Flipping this to `false` disables Traefik, but also potentially uninstalls and deletes data in `/devture-traefik`.
 
 - `gitea_playbook_traefik_role_enabled` (default `true`) - controls whether the Traefik role will execute or not. Setting this to `false` disables Traefik and doesn't touch `/devture-traefik` (which is potentially managed by another playbook)
 
-- `gitea_playbook_traefik_labels_enabled` (default `true`) - controls whether Traefik container labels are attached to services. You may disable Traefik with the variables above, yet still keep attaching labels, so that a separately-installed Traefik instance can reverse-proxy to these services. Even if you're not using Traefik at all, flipping this to `false` is generally not necessary, since having a few labels on containers doesn't hurt
+- `gitea_playbook_traefik_labels_enabled` (default `true`) - controls whether Traefik container labels are attached to services. You may disable Traefik with the variables above, yet still keep attaching labels, so that a separately-installed Traefik instance can reverse-proxy to these services. If you're not using Traefik at all, flip this to `false`
 
-- `gitea_playbook_reverse_proxyable_services_container_network` (default `traefik`) - controls the default container network for reverse-proxyable services (like `gitea-gitea`). We default these to the `traefik` network, because Traefik needs to be able to reach them as soon as they start.
-
-- `gitea_playbook_reverse_proxyable_services_additional_networks` (default `[gitea]` when `devture_traefik_enabled`) - a list of container networks that reverse-proxyable services (like `gitea-gitea`) should be attached to, so that they can do their job.
+- `gitea_playbook_reverse_proxyable_services_additional_network` (default `traefik`) - additional container network for reverse-proxyable services (like `gitea-gitea`). We default these to the `traefik` network, because Traefik needs to be able to reach them as soon as they start.
 
 Below is an example of **disabling Traefik completely** and letting you reverse-proxy using other means:
 

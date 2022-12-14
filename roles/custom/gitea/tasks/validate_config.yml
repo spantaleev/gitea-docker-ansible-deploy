@@ -10,3 +10,11 @@
     - gitea_gitea_config_database_hostname
     - gitea_gitea_config_database_username
     - gitea_gitea_config_database_password
+
+- name: Fail if required Gitea Traefik integration settings not defined
+  ansible.builtin.fail:
+    msg: >-
+      You need to define a required configuration setting (`{{ item }}`) for using this role.
+  when: "gitea_gitea_container_labels_traefik_enabled and vars[item] == ''"
+  with_items:
+    - gitea_gitea_container_labels_traefik_docker_network

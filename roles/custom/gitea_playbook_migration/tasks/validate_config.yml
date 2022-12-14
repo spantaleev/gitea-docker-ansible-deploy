@@ -20,3 +20,6 @@
     - {'old': 'gitea_playbook_postgres_installation_enabled', 'new': 'devture_postgres_enabled'}
 
     - {'old': 'gitea_playbook_traefik_installation_enabled', 'new': 'gitea_playbook_traefik_role_enabled'}
+
+    - {'old': 'gitea_playbook_reverse_proxyable_services_container_network', 'new': '<superseded by gitea_playbook_reverse_proxyable_services_additional_network>'}
+    - {'old': 'gitea_playbook_reverse_proxyable_services_additional_networks', 'new': '<superseded by gitea_playbook_reverse_proxyable_services_additional_network>'}

@@ -1,3 +1,16 @@
+# 2022-12-14
+
+# Container networks have flipped around
+
+If you're using an externally-managed Traefik server or other reverse-proxy, you may need to adapt your `vars.yml` configuration.
+
+To ensure connectivity of Gitea to Traefik, we used to put Gitea in Traefik's network (as a main network), and then also connect the Gitea container to "additional networks" (its own `gitea` network, etc.).
+
+While this worked, it was a little backwards. We now have a better way to do things - putting Gitea in its own `gitea` network as main, and connecting the Gitea container to additional networks (e.g. `traefik`) after creating the container, but before starting it. This also seems to work well and is more straightforward.
+
+The playbook will warn you if you're using any variables that have been renamed or dropped.
+
+
 # 2022-11-25
 
 # Traefik now runs in a separate container network from the rest of the Gitea services

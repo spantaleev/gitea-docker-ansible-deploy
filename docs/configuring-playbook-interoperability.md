@@ -19,11 +19,8 @@ If you're installing [Traefik](https://traefik.io) on your server in another way
 # Disable Traefik installation by the playbook
 gitea_playbook_traefik_role_enabled: false
 
-# But still attach services to some Traefik network by default (e.g. traefik)
-nextcloud_playbook_reverse_proxyable_services_container_network: traefik
-
-# And restore their connectivity to the Gitea network
-nextcloud_playbook_reverse_proxyable_services_additional_networks: [gitea]
+# But still attach services which require reverse-proxying to some Traefik network by default (e.g. traefik)
+gitea_playbook_reverse_proxyable_services_additional_network: traefik
 ```
 
 All services (among which the `gitea-gitea` container) have container labels attached, so that a Traefik instance can reverse-proxy to them. See `roles/custom/gitea/templates/labels.j2` for an example.
