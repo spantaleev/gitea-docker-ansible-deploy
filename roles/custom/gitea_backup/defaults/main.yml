@@ -3,9 +3,9 @@
 gitea_backup_enabled: false
 
 gitea_backup_base_path: "{{ gitea_base_path }}/backup"
-gitea_backup_bin_path: "{{ gitea_base_path }}/backup/bin"
-gitea_backup_etc_path: "{{ gitea_base_path }}/backup/etc"
-gitea_backup_data_path: "{{ gitea_base_path }}/backup/data"
+gitea_backup_bin_path: "{{ gitea_backup_base_path }}/bin"
+gitea_backup_etc_path: "{{ gitea_backup_base_path }}/etc"
+gitea_backup_data_path: "{{ gitea_backup_base_path }}/data"
 
 # gitea_backup_encryption_password holds a password to use for symmetric gpg encryption
 gitea_backup_encryption_password: ''
