@@ -1,6 +1,6 @@
 ---
 
-gitea_backup_enabled: false
+gitea_backup_enabled: true
 
 gitea_backup_base_path: "{{ gitea_base_path }}/backup"
 gitea_backup_bin_path: "{{ gitea_backup_base_path }}/bin"
