@@ -55,8 +55,3 @@
         source: "{{ 'pull' if ansible_version.major > 2 or ansible_version.minor > 7 else omit }}"
         force_source: "{{ gitea_backup_b2_container_image_force_pull if ansible_version.major > 2 or ansible_version.minor >= 8 else omit }}"
         force: "{{ omit if ansible_version.major > 2 or ansible_version.minor >= 8 else gitea_backup_b2_container_image_force_pull }}"
-
-- name: Ensure systemd reloaded after backup services installation
-  ansible.builtin.service:
-    daemon_reload: true
-  when: gitea_backup_systemd_service_result.changed

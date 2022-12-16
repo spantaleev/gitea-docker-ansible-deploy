@@ -16,6 +16,21 @@ gitea_backup_encryption_password: ''
 # By default, we favor extra safety, at the expense of some downtime while backing up.
 gitea_backup_stop_gitea_while_running: true
 
+# gitea_backup_paths_to_backup contains a list of paths to include in the backup.
+# Example: [/gitea]
+gitea_backup_paths_to_backup: []
+
+# gitea_backup_paths_to_exclude contains a list of paths to exclude from the backup
+# Example: [/gitea/something, /gitea/postgres/data]
+#
+# Playbook-managed paths are injected into `gitea_backup_paths_to_exclude_auto`.
+# To define your own paths, use `gitea_backup_paths_to_exclude_additional`.
+# If you'd like to override the auto-excluded paths from the playbook, override `gitea_backup_paths_to_exclude_auto`
+# or change `gitea_backup_paths_to_exclude`.
+gitea_backup_paths_to_exclude: "{{ gitea_backup_paths_to_exclude_auto + gitea_backup_paths_to_exclude_additional }}"
+gitea_backup_paths_to_exclude_auto: [gitea_backup_data_path + '/gitea-latest-backup.tar.gpg']
+gitea_backup_paths_to_exclude_additional: []
+
 # gitea_backup_schedule contains a systemd OnCalendar definition which controls how often `gitea-backup.timer` runs
 gitea_backup_schedule: '*-*-* 06:30:00'
 
@@ -29,7 +44,7 @@ gitea_backup_b2_key_secret: ~
 # gitea_backup_post_backup_custom_shell_commands contains a multiline string containing shell (bash) commands to execute
 # after the backup file is created and before pushing it to any backup providers.
 #
-# These commands are injected into `roles/custom/gitea_backup/templates/backup.j2` (`{{ gitea_backup_bin_path }}/backup` on the server).
+# These commands are injected into `../templates/backup.j2` (`{{ gitea_backup_bin_path }}/backup` on the server).
 #
 # Example:
 #

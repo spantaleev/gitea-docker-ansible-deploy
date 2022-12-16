@@ -65,6 +65,6 @@ Restoring is a relatively manual process that goes like this:
 3. Get your `DATE-gitea-latest.tar.gpg` backup file onto the server
 4. Decrypt it: `gpg --no-symkey-cache -d FILE.tar.gpg > FILE.tar`
 5. Extract it: ` tar xf FILE.tar -C /` (this will create the `/gitea` directory and put all files under it)
-6. Re-run the playbook. See [Installing](installing.md)
-8. Import the Postgres database dump (`/gitea/backup/latest-dump.sql.gz`) by running: `ansible-playbook -i inventory/hosts setup.yml --tags=import-postgres --extra-vars='{"server_path_postgres_dump": "/gitea/backup/data/latest-dump.sql.gz"}'`
+6. Re-run the playbook **without** a `start` tag. See [Installing](installing.md)
+8. Import the Postgres database dump (`/gitea/backup/data/latest-dump.sql.gz`) by running: `ansible-playbook -i inventory/hosts setup.yml --tags=import-postgres --extra-vars='{"server_path_postgres_dump": "/gitea/backup/data/latest-dump.sql.gz"}'`
 9. Start services: `ansible-playbook -i inventory/hosts setup.yml --tags=start`

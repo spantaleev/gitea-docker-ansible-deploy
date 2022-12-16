@@ -110,6 +110,23 @@ gitea_gitea_config_database_password: "{{ '%s' | format(gitea_generic_secret_key
 
 gitea_backup_enabled: false
 
+gitea_backup_paths_to_backup: "{{ [gitea_base_path] }}"
+
+gitea_backup_paths_to_exclude_auto: |
+  {{
+    (
+      [gitea_backup_data_path + '/gitea-latest-backup.tar.gpg']
+    )
+    +
+    ([
+      devture_postgres_base_path
+    ] if devture_postgres_enabled else [])
+    +
+    ([
+      devture_postgres_backup_base_path
+    ] if devture_postgres_backup_enabled else [])
+  }}
+
 ########################################################################
 #                                                                      #
 # /gitea_backup                                                        #

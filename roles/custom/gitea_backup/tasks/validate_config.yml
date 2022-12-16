@@ -1,9 +1,15 @@
 ---
 
-- name: Fail if backup settings not defined
+- name: Fail if gitea-backup settings not defined
   ansible.builtin.fail:
     msg: >-
       You need to define a required configuration setting (`{{ item }}`) for using this role.
   when: "vars[item] == ''"
   with_items:
     - "gitea_backup_encryption_password"
+
+- name: Fail if empty gitea_backup_paths_to_backup
+  ansible.builtin.fail:
+    msg: >-
+      You need at least one path to backup in `gitea_backup_paths_to_backup`
+  when: gitea_backup_paths_to_backup | length == 0

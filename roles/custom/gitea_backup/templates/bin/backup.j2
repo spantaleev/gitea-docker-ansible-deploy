@@ -7,11 +7,11 @@
 {% if gitea_backup_stop_gitea_while_running %}
 {{ devture_systemd_docker_base_host_command_systemctl }} stop gitea-gitea.service
 
-function restart_gitea() {
+function restart_service() {
 {{ devture_systemd_docker_base_host_command_systemctl }} start gitea-gitea.service
 }
 
-trap restart_gitea EXIT
+trap restart_service EXIT
 {% endif %}
 
 #################################
@@ -34,12 +34,10 @@ fi
 {% endif %}
 
 tar cP \
-	--exclude={{ gitea_backup_data_path }}/gitea-latest-backup.tar.gpg \
-	{% if devture_postgres_enabled %}
-	--exclude={{ devture_postgres_data_path }} \
-	{% endif %}
-	{{ gitea_backup_data_path }}/latest-dump.sql.gz \
-	{{ gitea_base_path }} \
+	{% for path in gitea_backup_paths_to_exclude %}
+	--exclude={{ path }} \
+	{% endfor %}
+	{{ gitea_backup_paths_to_backup | join(' ') }} \
 | gpg -q -c --batch --no-tty --passphrase-file {{ gitea_backup_etc_path }}/backup-password > {{ gitea_backup_data_path }}/gitea-latest-backup.tar.gpg
 
 if [ $? -ne 0 ]; then
@@ -51,8 +49,8 @@ fi
 ### /Backup                     #
 #################################
 
-# We're done making the backup can restart early, without waiting for exit.
-restart_gitea
+# We're done making the backup, so we can restart early, without waiting for exit.
+restart_service
 trap - EXIT
 
 {% if gitea_backup_post_backup_custom_shell_commands %}
