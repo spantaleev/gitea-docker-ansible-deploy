@@ -69,5 +69,5 @@ gitea_backup_post_backup_custom_shell_commands: ''
 # # The command below signals to a https://healthchecks.io/ check that the backup script
 # # reached the end without hitting any errors.
 # gitea_backup_before_exit_custom_shell_commands: |-
-#   curl -m 10 --retry 5 https://healthchecks.DOMAIN/ping/healthcheck-id
+#   curl -fsS -m 10 --retry 5 -o /dev/null https://healthchecks.DOMAIN/ping/healthcheck-id
 gitea_backup_before_exit_custom_shell_commands: ''
