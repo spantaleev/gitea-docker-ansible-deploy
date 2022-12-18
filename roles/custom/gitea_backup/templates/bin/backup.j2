@@ -54,13 +54,15 @@ restart_service
 trap - EXIT
 
 {% if gitea_backup_post_backup_custom_shell_commands %}
-#################################
-### Custom shell commands       #
-#################################
+#############################################
+### Post-backup custom shell commands       #
+#############################################
+
 {{ gitea_backup_post_backup_custom_shell_commands }}
-#################################
-### /Custom shell commands       #
-#################################
+
+#############################################
+### /Post-backup custom shell commands      #
+#############################################
 {% endif %}
 
 
@@ -86,10 +88,22 @@ ret_val=$?
 if [ $ret_val -ne 0 ]; then
 	cat $b2_operation_log_file
 	rm $b2_operation_log_file
+	exit $ret_val
 fi
-exit $ret_val
 
 #################################
 ### /Pushing to B2              #
 #################################
+{% endif %}
+
+{% if gitea_backup_before_exit_custom_shell_commands %}
+#############################################
+### Before exit custom shell commands       #
+#############################################
+
+{{ gitea_backup_before_exit_custom_shell_commands }}
+
+#############################################
+### /Before exit custom shell commands      #
+#############################################
 {% endif %}

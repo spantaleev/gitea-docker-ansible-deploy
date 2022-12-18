@@ -46,13 +46,28 @@ gitea_backup_b2_key_secret: ~
 #
 # These commands are injected into `../templates/backup.j2` (`{{ gitea_backup_bin_path }}/backup` on the server).
 #
+# Also see: gitea_backup_before_exit_custom_shell_commands
+#
 # Example:
 #
 # # The commands below expose the latest backup as a `/home/backup/gitea-latest-backup.tar.gpg` file,
 # # to be periodically pulled from a remote machine over SSH (via `backup@gitea.DOMAIN`).
 # # Setting up this `backup` user, home directory and access (SSH keys, etc.) is not managed by the playbook.
-# gitea_backup_post_backup_custom_shell_commands: |
+# gitea_backup_post_backup_custom_shell_commands: |-
 #   cp {{ gitea_backup_data_path }}/gitea-latest-backup.tar.gpg /home/backup/gitea-latest-backup.tar.gpg
 #   chown backup:backup /home/backup/gitea-latest-backup.tar.gpg
 #   chmod 400 /home/backup/gitea-latest-backup.tar.gpg
 gitea_backup_post_backup_custom_shell_commands: ''
+
+# gitea_backup_before_exit_custom_shell_commands contains a multiline string containing shell (bash) commands to execute
+# at the end of the backup script.
+#
+# These commands are injected into `../templates/backup.j2` (`{{ gitea_backup_bin_path }}/backup` on the server).
+#
+# Example:
+#
+# # The command below signals to a https://healthchecks.io/ check that the backup script
+# # reached the end without hitting any errors.
+# gitea_backup_before_exit_custom_shell_commands: |-
+#   curl -m 10 --retry 5 https://healthchecks.DOMAIN/ping/healthcheck-id
+gitea_backup_before_exit_custom_shell_commands: ''
