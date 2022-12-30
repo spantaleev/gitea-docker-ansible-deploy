@@ -1,7 +1,7 @@
 ---
 
 - src: geerlingguy.docker
-  version: 6.0.3
+  version: 6.0.4
 
 - src: git+https://github.com/devture/com.devture.ansible.role.docker_sdk_for_python.git
   version: 6ba3be490b6f4c6f35ea109aeb8e533fa231b3a5
@@ -25,10 +25,10 @@
   version: 77b1f9ae1aafa31c9078178c1036bf744c99d08b
 
 - src: git+https://github.com/devture/com.devture.ansible.role.woodpecker_ci_server.git
-  version: 6ae10512d43ac991a742f58e3211f9d8fa589113
+  version: f045752f1f22d08066301c0f102bb9fbdad75884
 
 - src: git+https://github.com/devture/com.devture.ansible.role.woodpecker_ci_agent.git
-  version: 421571a843cf47115d806656199706274dfd6287
+  version: 39580b4ee31ff7c448625b92d2def077ac8f236e
 
 - src: git+https://github.com/devture/com.devture.ansible.role.traefik.git
   version: 7b1950a9d5d7aed0b6e37129600aea0faa2693f8
