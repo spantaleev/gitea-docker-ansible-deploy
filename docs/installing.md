@@ -2,7 +2,7 @@
 
 After [configuring DNS](configuring-dns.md) and [configuring the playbook](configuring-playbook.md), you're ready to install.
 
-**First**, update the Ansible roles in this playbook by running `make roles`.
+**Before installing** and each time you update the playbook in the future, you will need to update the Ansible roles in this playbook by running `just roles`. `just roles` is a shortcut (a `roles` target defined in [`justfile`](justfile) and executed by the [`just`](https://github.com/casey/just) utility) which ultimately runs [ansible-galaxy](https://docs.ansible.com/ansible/latest/cli/ansible-galaxy.html) to download Ansible roles. If you don't have `just`, you can also manually run the `roles` commands seen in the `justfile`.
 
 
 ## Playbook tags introduction
@@ -34,7 +34,7 @@ Run the playbook: `ansible-playbook -i inventory/hosts setup.yml --tags=install-
 
 If your inventory file (`vars.yml`) contains encrypted variables, you may need to pass `--ask-vault-pass` to the `ansible-playbook` command.
 
-After installing, you can start services: `ansible-playbook -i inventory/hosts setup.yml --tags=start`.
+After installing, you can start services with `just start-all` (or `ansible-playbook -i inventory/hosts setup.yml --tags=start`).
 
 **Hint**: In the future (especially if you'll be disabling playbook components), you may wish to use the `setup-all` tag (instead of `install-all`) to ensure that disabled components are uninstalled correctly. Read more about [playbook tags](#playbook-tags-introduction) above.
 
