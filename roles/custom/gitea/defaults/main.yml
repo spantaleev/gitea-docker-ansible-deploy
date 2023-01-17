@@ -4,7 +4,7 @@
 gitea_server_fqn_gitea: ''
 
 gitea_gitea_container_image: "docker.io/gitea/gitea:{{ gitea_gitea_container_image_tag }}"
-gitea_gitea_container_image_tag: "1.18.0-rootless"
+gitea_gitea_container_image_tag: "1.18.1-rootless"
 gitea_gitea_container_image_force_pull: "{{ gitea_gitea_container_image.endswith(':latest') }}"
 
 gitea_gitea_base_path: "{{ gitea_base_path }}/gitea"
