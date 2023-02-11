@@ -7,3 +7,8 @@
   when: "vars[item] == ''"
   with_items:
     - gitea_generic_secret_key
+
+- name: Fail if gitea_playbook_reverse_proxy_type is set incorrectly
+  ansible.builtin.fail:
+    msg: "Detected that variable gitea_playbook_reverse_proxy_type (current value: `{{ gitea_playbook_reverse_proxy_type }}`) appears to be set incorrectly. See roles/custom/base/defaults/main.yml for valid choices."
+  when: gitea_playbook_reverse_proxy_type not in ['playbook-managed-traefik', 'other-traefik-container', 'none']

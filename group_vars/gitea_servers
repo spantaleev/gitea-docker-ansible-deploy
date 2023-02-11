@@ -21,13 +21,13 @@ gitea_playbook_docker_installation_enabled: true
 # In such cases, you'd like to disable the role in this playbook from bothering with Traefik at all (`gitea_playbook_traefik_role_enabled: false`).
 # If you used `devture_traefik_enabled: false` + `gitea_playbook_traefik_role_enabled: true` instead, you'd see the Treafik role here
 # try to delete Traefik data (`/devture-traefik`) installed by the other playbook.
-gitea_playbook_traefik_role_enabled: true
+gitea_playbook_traefik_role_enabled: "{{ gitea_playbook_reverse_proxy_type != 'other-traefik-container' }}"
 
 # Controls whether to attach Traefik labels to services.
 # This is separate from `devture_traefik_enabled` and `gitea_playbook_traefik_role_enabled`,
 # because you may wish to disable Traefik installation by the playbook, yet still use Traefik
 # installed in another way.
-gitea_playbook_traefik_labels_enabled: true
+gitea_playbook_traefik_labels_enabled: "{{ gitea_playbook_reverse_proxy_type in ['playbook-managed-traefik', 'other-traefik-container'] }}"
 
 # Controls the additional network that reverse-proxyable services will be connected to.
 gitea_playbook_reverse_proxyable_services_additional_network: "{{ devture_traefik_container_network if devture_traefik_enabled else '' }}"
@@ -359,7 +359,7 @@ devture_playbook_state_preserver_commit_hash_preservation_dst: "{{ gitea_base_pa
 
 # To completely disable the Traefik role from running, use `gitea_playbook_traefik_role_enabled: false`.
 # See the comment there for more details about why we have both `devture_traefik_enabled` and `gitea_playbook_traefik_role_enabled`.
-devture_traefik_enabled: "{{ gitea_playbook_traefik_role_enabled }}"
+devture_traefik_enabled: "{{ gitea_playbook_reverse_proxy_type == 'playbook-managed-traefik' }}"
 
 devture_traefik_uid: "{{ gitea_uid }}"
 devture_traefik_gid: "{{ gitea_gid }}"

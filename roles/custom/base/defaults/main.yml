@@ -14,3 +14,27 @@ gitea_generic_secret_key: ''
 # Recognized values by us are 'amd64', 'arm32' and 'arm64'.
 # Not all architectures support all services, so your experience (on non-amd64) may vary.
 gitea_architecture: "{{ 'amd64' if ansible_architecture == 'x86_64' else ('arm64' if ansible_architecture == 'aarch64' else ('arm32' if ansible_architecture.startswith('armv') else '')) }}"
+
+# Specifies the type of reverse-proxy used by the playbook.
+#
+# Changing this has an effect on whether a reverse-proxy is installed at all and what its type is,
+# as well as how all other services are configured.
+#
+# Valid options and a description of their behavior:
+#
+# - `playbook-managed-traefik`
+#     - the playbook will install devture-traefik
+#     - Traefik will do SSL termination, unless you disable it (e.g. `devture_traefik_config_entrypoint_web_secure_enabled: false`)
+#     - if SSL termination is enabled (as it is by default), you need to populate: `devture_traefik_ssl_email_address`
+#
+# - `other-traefik-container`
+#     - this playbook will not install Traefik
+#     - nevertheless, the playbook expects that you would install Traefik yourself via other means
+#     - you should make sure your Traefik configuration is compatible with what the playbook would have configured (web, web-secure entrypoints, etc.)
+#     - you need to set `gitea_playbook_reverse_proxyable_services_additional_network` to the name of your Traefik network
+#
+# - `none`
+#     - no reverse-proxy will be installed
+#     - no port exposure will be done for any of the container services
+#     - it's up to you to expose the ports you want, etc.
+gitea_playbook_reverse_proxy_type: playbook-managed-traefik
