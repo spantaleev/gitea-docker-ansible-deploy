@@ -8,7 +8,7 @@ By default, this playbook installs a [Traefik](https://traefik.io/) reverse-prox
 To control the playbook's reverse-proxy integration use `gitea_playbook_reverse_proxy_type` variable, which controls the type of reverse-proxy that the playbook will use. Valid values:
 
   - `playbook-managed-traefik` (the default)
-  - `other-traefik-container`
+  - `other-traefik-container`, see [Using your own Traefik server (installed separately)](#using-your-own-traefik-server-installed-separately)
   - `none`
 
 Learn more about these values and their behavior from [roles/custom/base/defaults/main.yml](../roles/custom/base/defaults/main.yml)
@@ -28,6 +28,19 @@ The variables below are **automatically set** based on the reverse-proxy type (`
 
 
 ## Examples
+
+### Using your own Traefik server (installed separately)
+
+If you'd like to avoid the playbook installing its own Traefik server and instead use your own, use this configuration:
+
+```yaml
+gitea_playbook_reverse_proxy_type: other-traefik-container
+# Specify the name of your Traefik network here
+nextcloud_playbook_reverse_proxyable_services_additional_network: traefik
+```
+
+All services will have container labels attached, so that a Traefik instance can reverse-proxy to them.
+
 
 ### Using Traefik in local-only mode
 
