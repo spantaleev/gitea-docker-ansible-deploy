@@ -25,7 +25,7 @@ gitea_architecture: "{{ 'amd64' if ansible_architecture == 'x86_64' else ('arm64
 # - `playbook-managed-traefik`
 #     - the playbook will install devture-traefik
 #     - Traefik will do SSL termination, unless you disable it (e.g. `devture_traefik_config_entrypoint_web_secure_enabled: false`)
-#     - if SSL termination is enabled (as it is by default), you need to populate: `devture_traefik_ssl_email_address`
+#     - if SSL termination is enabled (as it is by default), you need to populate: `devture_traefik_config_certificatesResolvers_acme_email`
 #
 # - `other-traefik-container`
 #     - this playbook will not install Traefik
