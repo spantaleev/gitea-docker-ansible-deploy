@@ -25,10 +25,10 @@
   version: 77b1f9ae1aafa31c9078178c1036bf744c99d08b
 
 - src: git+https://github.com/devture/com.devture.ansible.role.woodpecker_ci_server.git
-  version: f045752f1f22d08066301c0f102bb9fbdad75884
+  version: 85a1258f37c614ea7cba8d946206475a2c48b06b
 
 - src: git+https://github.com/devture/com.devture.ansible.role.woodpecker_ci_agent.git
-  version: 39580b4ee31ff7c448625b92d2def077ac8f236e
+  version: 07f679feb928932cebd61434c83265c9de653214
 
 - src: git+https://github.com/devture/com.devture.ansible.role.traefik.git
   version: 4ec9187017cb7832f521fc273fabd0a873ca2736
