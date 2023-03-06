@@ -30,8 +30,11 @@
 - src: git+https://github.com/devture/com.devture.ansible.role.woodpecker_ci_agent.git
   version: 07f679feb928932cebd61434c83265c9de653214
 
+- src: git+https://github.com/devture/com.devture.ansible.role.container_socket_proxy.git
+  version: v0.1.1-1
+
 - src: git+https://github.com/devture/com.devture.ansible.role.traefik.git
-  version: v2.9.8-0
+  version: v2.9.8-1
 
 - src: git+https://github.com/devture/com.devture.ansible.role.systemd_service_manager.git
   version: 6ccb88ac5fc27e1e70afcd48278ade4b564a9096

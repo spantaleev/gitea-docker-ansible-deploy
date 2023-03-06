@@ -51,8 +51,9 @@
     - role: galaxy/com.devture.ansible.role.woodpecker_ci_server
     - role: galaxy/com.devture.ansible.role.woodpecker_ci_agent
 
-    - when: gitea_playbook_traefik_role_enabled | bool
-      role: galaxy/com.devture.ansible.role.traefik
+    - role: galaxy/com.devture.ansible.role.container_socket_proxy
+
+    - role: galaxy/com.devture.ansible.role.traefik
 
     - when: devture_systemd_service_manager_enabled | bool
       role: galaxy/com.devture.ansible.role.systemd_service_manager
