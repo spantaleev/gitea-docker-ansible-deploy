@@ -1,5 +1,7 @@
 # Gitea server setup using Ansible and Docker
 
+**WARNING**: this playbook has been made obsolete by the [MASH playbook](https://github.com/mother-of-all-self-hosting/mash-playbook), which also supports installing the [Gitea service](https://github.com/mother-of-all-self-hosting/mash-playbook/blob/main/docs/services/gitea.md) or [Woodpecker CI](https://github.com/mother-of-all-self-hosting/mash-playbook/blob/main/docs/services/woodpecker-ci.md) server and agent services.
+
 This [Ansible](https://www.ansible.com/) playbook can help you set up your own [Gitea](https://gitea.io/) server instance:
 
 - on your own Debian/CentOS/RedHat server
