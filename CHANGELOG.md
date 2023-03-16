@@ -1,6 +1,6 @@
 # 2023-03-16
 
-## This playbook has been absobred into the MASH playbook
+## This playbook has been absorbed into the MASH playbook
 
 To avoid maintaining too many similarly-looking playbooks, I've decided to merge this playbook into the newly-created [MASH playbook](https://github.com/mother-of-all-self-hosting/mash-playbook). For more details about this, see the [Why create such a mega playbook?](https://github.com/mother-of-all-self-hosting/mash-playbook/tree/main#why-create-such-a-mega-playbook) section of the new playbook's README file.
 
