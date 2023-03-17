@@ -2,7 +2,7 @@
 
 -------
 
-**WARNING**: this playbook has been **made obsolete** by the [MASH playbook](https://github.com/mother-of-all-self-hosting/mash-playbook), which also supports installing the [Gitea](https://github.com/mother-of-all-self-hosting/mash-playbook/blob/main/docs/services/gitea.md) and [Woodpecker CI](https://github.com/mother-of-all-self-hosting/mash-playbook/blob/main/docs/services/woodpecker-ci.md) server and agent services.
+**WARNING**: this playbook has been **made obsolete** by the [MASH playbook](https://github.com/mother-of-all-self-hosting/mash-playbook), which also supports installing the [Gitea](https://github.com/mother-of-all-self-hosting/mash-playbook/blob/main/docs/services/gitea.md) and [Woodpecker CI](https://github.com/mother-of-all-self-hosting/mash-playbook/blob/main/docs/services/woodpecker-ci.md) server and agent services. There's a [migration guide](CHANGELOG.md#this-playbook-has-been-absorbed-into-the-mash-playbook) in the changelog.
 
 -------
 
